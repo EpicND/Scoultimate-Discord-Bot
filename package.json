@@ -1,0 +1,27 @@
+{
+  "name": "scoultimate-discord-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.ts",
+  "scripts": {
+    "test": "nodemon server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EpicND/Scoultimate-Discord-Bot.git"
+  },
+  "author": "Dhairya Gupta, Neev Mangal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EpicND/Scoultimate-Discord-Bot/issues"
+  },
+  "homepage": "https://github.com/EpicND/Scoultimate-Discord-Bot#readme",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "nodemon": "^3.0.2"
+  }
+}
