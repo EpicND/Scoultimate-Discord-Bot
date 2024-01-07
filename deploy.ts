@@ -47,7 +47,10 @@ export default function deploy() {
 
       // The put method is used to fully refresh all commands in the guild with the current set
       const data = await rest.put(
-        Routes.applicationCommands(constants.client_id),
+        Routes.applicationGuildCommands(
+          constants.client_id,
+          constants.guild_id
+        ),
         { body: commands }
       );
 
