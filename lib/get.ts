@@ -22,7 +22,7 @@ export async function get<T>(path: string): Promise<T> {
  * @throws An error if the HTTP status code is not 200.
  */
 async function apiRequest(path: string): Promise<any> {
-  const data = await fetch(`${constants.base_api_url}/${path}`, {
+  const data = await fetch(`${constants.tba_base_api_url}/${path}`, {
     method: "GET",
     headers: requestHeaders,
   });
