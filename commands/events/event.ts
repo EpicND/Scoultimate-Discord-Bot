@@ -40,7 +40,9 @@ async function retrieveEmbed(key: string) {
     website: website,
     country: country || "NA",
     location:
-      city && state_prov ? `${city}, ${state_prov}` : "Location unavailable.",
+      city && state_prov && country
+        ? `${city}, ${state_prov}, ${country}`
+        : "Location unavailable.",
     top: getTopTeams(rankings),
     address: gmaps_url,
   });
@@ -52,6 +54,8 @@ async function retrieveEmbed(key: string) {
 
 function getTopTeams(rankingData: APIEventRankings) {
   if (rankingData == null || rankingData == undefined) return undefined;
+  if (rankingData.rankings.length == 0) return undefined;
+
   const rankings = rankingData.rankings;
 
   return {

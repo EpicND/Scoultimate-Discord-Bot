@@ -11,4 +11,14 @@ export default {
   tba_key: process.env.TBA_KEY || "",
   tba_base_url: process.env.TBA_BASE_URL || "https://www.thebluealliance.com",
   bot_logo_url: process.env.BOT_LOGO_URL || "",
+  cloudinary_bucket_url: process.env.CLOUDINARY_BUCKET_URL || "",
+};
+
+interface embedConstants {
+  [key: string]: [number, number, number];
+}
+
+export const embedConstants: embedConstants = {
+  eventColor: [52, 186, 235],
+  errorColor: [207, 0, 0],
 };

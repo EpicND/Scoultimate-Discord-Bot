@@ -1,4 +1,5 @@
 import { EmbedBuilder } from "discord.js";
+import { embedConstants } from "../../constants";
 
 export interface ErrorEmbed {
   error: string;
@@ -14,7 +15,7 @@ export function generateErrorEmbed(embedData: ErrorEmbed): EmbedBuilder {
   const embed = new EmbedBuilder();
 
   embed
-    .setColor([207, 0, 0])
+    .setColor(embedConstants.errorColor)
     .setTitle("❌ Error")
     .setDescription(embedData.error);
 

@@ -1,6 +1,7 @@
 import { EmbedBuilder } from "discord.js";
 import { format } from "date-fns";
 import { getStandardEmbed } from "./Generate";
+import { embedConstants } from "../../constants";
 
 export interface EventEmbed {
   event_name: string;
@@ -35,17 +36,17 @@ export interface TeamRank {
  * @returns The generated event embed builder.
  */
 export function generateEventEmbed(embedData: EventEmbed): EmbedBuilder {
-  const embed = getStandardEmbed("/event");
+  const embed = getStandardEmbed("/event", "Event Info");
 
   embed
     .setTitle(`${embedData.event_name} - ${embedData.key}`)
     .setDescription(
       `**${getCountryEmoji(embedData.country)} ${embedData.location} - Week ${
         embedData.week != -2 ? embedData.week : "NA"
-      } ${embedData.event_type} Event** \n${format(
-        embedData.start,
+      } Event** \n${format(embedData.start, "PPPP")} - ${format(
+        embedData.end,
         "PPPP"
-      )} - ${format(embedData.end, "PPPP")}`
+      )}`
     );
 
   if (embedData.top) {
@@ -70,6 +71,8 @@ export function generateEventEmbed(embedData: EventEmbed): EmbedBuilder {
     embed.addFields({ name: "Location", value: embedData.address });
   }
 
+  embed.setColor(embedConstants.eventColor);
+
   return embed;
 }
 
@@ -89,6 +92,8 @@ function getCountryEmoji(country: string) {
       return "🇮🇱";
     case "China":
       return "🇨🇳";
+    case "Australia":
+      return "🇦🇺";
     default:
       return "<:firstlogo:1193494520613060628>";
   }
