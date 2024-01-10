@@ -1,5 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 import { LoadingEmbed } from "../../models/EmbedModels/LoadingEmbedModel";
+import { embedConstants } from "../../constants";
 
 /**
  * Generates a loading state embed.
@@ -10,7 +11,7 @@ export function generateLoadingEmbed(embedData: LoadingEmbed): EmbedBuilder {
   const embed = new EmbedBuilder();
 
   embed
-    .setColor([50, 137, 68])
+    .setColor(embedConstants.loadingColor)
     .setTitle("Loading")
     .setDescription(`Loading data for ${embedData.type} ${embedData.key}`);
 

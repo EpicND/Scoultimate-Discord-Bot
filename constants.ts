@@ -21,4 +21,5 @@ interface embedConstants {
 export const embedConstants: embedConstants = {
   eventColor: [52, 186, 235],
   errorColor: [207, 0, 0],
+  loadingColor: [50, 137, 68],
 };

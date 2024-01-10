@@ -48,8 +48,10 @@ export default function deploy() {
       // The put method is used to fully refresh all commands in the guild with the current set
 
       if (process.env.ENVIRONMENT == "PRODUCTION") {
-        await rest.put(Routes.applicationCommands(constants.client_id));
-        console.log(`Successfully reloaded application (GUILD) (/) commands.`);
+        await rest.put(Routes.applicationCommands(constants.client_id), {
+          body: commands,
+        });
+        console.log(`Successfully reloaded application (ALL) (/) commands.`);
       } else {
         await rest.put(
           Routes.applicationGuildCommands(
