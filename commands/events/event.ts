@@ -1,4 +1,8 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import {
+  ChatInputCommandInteraction,
+  EmbedBuilder,
+  SlashCommandBuilder,
+} from "discord.js";
 import { get } from "../../lib/get";
 import { generateEventEmbed } from "../../lib/embeds/EventEmbed";
 import { APIEvent } from "../../models/APIModels/APIEventModel";
@@ -12,7 +16,7 @@ import constants from "../../constants";
  * @param key - The key of the event.
  * @returns The embed for the event.
  */
-async function retrieveEmbed(key: string) {
+async function retrieveEmbed(key: string): Promise<EmbedBuilder> {
   const data = await get<APIEvent>(`event/${key}`);
 
   const rankings = await get<APIEventRankings>(`event/${key}/rankings`);
@@ -32,7 +36,7 @@ async function retrieveEmbed(key: string) {
 
   const embed = generateEventEmbed({
     event_name: name,
-    event_type: "Regional",
+    event_type: "", // TODO - add support for event types by TBA's specification
     key: key,
     week: week !== null && week !== undefined ? week + 1 : -2,
     start: new Date(start_date),

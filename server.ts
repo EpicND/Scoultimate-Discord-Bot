@@ -4,7 +4,7 @@ import path from "node:path";
 import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
 import constants from "./constants";
 import { ClientWithCommands } from "./types";
-import deploy from "./deploy";
+import deploy from "./lib/deploy";
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages],

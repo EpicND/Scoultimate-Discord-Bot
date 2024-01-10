@@ -4,14 +4,14 @@ import {
   Routes,
   SlashCommandBuilder,
 } from "discord.js";
-import constants from "./constants";
+import constants from "../constants";
 import fs from "node:fs";
 import path from "node:path";
 
 export default function deploy() {
   const commands: RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
   // Grab all the command folders from the commands directory you created earlier
-  const foldersPath = path.join(__dirname, "commands");
+  const foldersPath = path.join(__dirname, "../commands");
   const commandFolders = fs.readdirSync(foldersPath);
 
   for (const folder of commandFolders) {
@@ -46,15 +46,21 @@ export default function deploy() {
       );
 
       // The put method is used to fully refresh all commands in the guild with the current set
-      const data = await rest.put(
-        Routes.applicationGuildCommands(
-          constants.client_id,
-          constants.guild_id
-        ),
-        { body: commands }
-      );
 
-      console.log(`Successfully reloaded ${data} application (/) commands.`);
+      if (process.env.ENVIRONMENT == "PRODUCTION") {
+        await rest.put(Routes.applicationCommands(constants.client_id));
+        console.log(`Successfully reloaded application (GUILD) (/) commands.`);
+      } else {
+        await rest.put(
+          Routes.applicationGuildCommands(
+            constants.client_id,
+            constants.guild_id
+          ),
+          { body: commands }
+        );
+
+        console.log(`Successfully reloaded application (GUILD) (/) commands.`);
+      }
     } catch (error) {
       // And of course, make sure you catch and log any errors!
       console.error(error);
