@@ -1,35 +1,8 @@
 import constants from "../../constants";
+import { TeamEmbed } from "../../models/EmbedModels/TeamEmbedModel";
 import { getCountryEmoji } from "../getCountryEmoji";
 import { getStandardEmbed } from "./Generate";
 import vibrant from "node-vibrant";
-
-export interface TeamEmbed {
-  team_name: string;
-  team_number: number | string;
-  awards: Award[];
-  years: number[];
-  events: Event[];
-  profiles: SocialProfile[];
-  city?: string;
-  country?: string;
-  state_prov?: string;
-  logo_url: string;
-  rookie_year?: number;
-}
-
-export interface Award {
-  name: string;
-}
-
-export interface Event {
-  key: string;
-  name: string;
-}
-
-export interface SocialProfile {
-  service: string;
-  url?: string;
-}
 
 export async function generateTeamEmbed(embedData: TeamEmbed) {
   const embed = getStandardEmbed("/team", "Team Info");
@@ -80,6 +53,19 @@ export async function generateTeamEmbed(embedData: TeamEmbed) {
             })
             .join("")
         : "No events this year."
+    }`,
+  });
+
+  embed.addFields({
+    name: "**Team Social Media**",
+    value: `${
+      profiles.length > 0
+        ? profiles
+            .map((profile) => {
+              return `${profile.service}: [${profile.id}](${profile.url})\n`;
+            })
+            .join("")
+        : "No social media."
     }`,
   });
 

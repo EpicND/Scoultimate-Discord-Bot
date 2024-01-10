@@ -1,10 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 import { embedConstants } from "../../constants";
-
-export interface ErrorEmbed {
-  error: string;
-  errorCode?: number;
-}
+import { ErrorEmbed } from "../../models/EmbedModels/ErrorEmbedModel";
 
 /**
  * Generates an error embed.

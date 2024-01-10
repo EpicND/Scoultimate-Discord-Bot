@@ -3,33 +3,7 @@ import { format } from "date-fns";
 import { getStandardEmbed } from "./Generate";
 import { embedConstants } from "../../constants";
 import { getCountryEmoji } from "../getCountryEmoji";
-
-export interface EventEmbed {
-  event_name: string;
-  event_type: string;
-  key: string;
-  week: number;
-  start: Date;
-  end: Date;
-  website?: string;
-  top?: {
-    1: TeamRank;
-    2: TeamRank;
-    3: TeamRank;
-  };
-  country: string;
-  location: string;
-  address?: string;
-}
-
-export interface TeamRank {
-  record: {
-    w: number;
-    l: number;
-    t: number;
-  };
-  team: number | string;
-}
+import { EventEmbed, TeamRank } from "../../models/EmbedModels/EventEmbedModel";
 
 /**
  * Generates an event embed based on the provided data.

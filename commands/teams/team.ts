@@ -11,6 +11,7 @@ import { generateTeamEmbed } from "../../lib/embeds/TeamEmbed";
 import { APITeamEvent } from "../../models/APIModels/APITeamEvent";
 import constants from "../../constants";
 import { generateLoadingEmbed } from "../../lib/embeds/LoadingEmbed";
+import { getSocialMediaProfile } from "../../lib/getSocialMediaProfile";
 
 async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
   const { country, city, state_prov, nickname, name, rookie_year } =
@@ -19,9 +20,12 @@ async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
   const socialMedia = await get<APITeamSocialMedia[]>(
     `team/frc${team}/social_media`
   );
+  console.log(socialMedia);
 
   const awards = await get<APITeamAward[]>(`team/frc${team}/awards`);
-  const events = await get<APITeamEvent[]>(`team/frc${team}/events/${2024}`);
+  const events = await get<APITeamEvent[]>(
+    `team/frc${team}/events/${new Date().getFullYear()}`
+  );
 
   const embed = await generateTeamEmbed({
     team_name: nickname || name,
@@ -35,10 +39,7 @@ async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
     state_prov,
     logo_url: `${constants.cloudinary_bucket_url}/${team}.png`,
     profiles: socialMedia.map((value) => {
-      return {
-        service: value.type,
-        url: value.direct_url,
-      };
+      return getSocialMediaProfile(value);
     }),
   });
 

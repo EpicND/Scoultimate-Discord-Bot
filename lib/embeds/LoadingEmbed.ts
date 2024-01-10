@@ -1,9 +1,5 @@
 import { EmbedBuilder } from "discord.js";
-
-export interface LoadingEmbed {
-  key: string;
-  type: "Event" | "Team";
-}
+import { LoadingEmbed } from "../../models/EmbedModels/LoadingEmbedModel";
 
 /**
  * Generates a loading state embed.
