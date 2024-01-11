@@ -32,11 +32,12 @@ async function retrieveEmbed(key: string): Promise<EmbedBuilder> {
     start_date,
     end_date,
     gmaps_url,
+    event_type_string,
   } = data;
 
   const embed = generateEventEmbed({
     event_name: name,
-    event_type: "", // TODO - add support for event types by TBA's specification
+    event_type: event_type_string, // TODO - add support for event types by TBA's specification
     key: key,
     week: week !== null && week !== undefined ? week + 1 : -2,
     start: new Date(start_date),

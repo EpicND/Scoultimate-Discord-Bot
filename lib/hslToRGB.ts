@@ -1,4 +1,21 @@
-export function HSLToRGB(h: number, s: number, l: number) {
+/**
+ * Converts HSL (Hue, Saturation, Lightness) color values to RGB (Red, Green, Blue) color values.
+ * @param h - The hue value (0-360).
+ * @param s - The saturation value (0-100).
+ * @param l - The lightness value (0-100).
+ * @returns An array containing the RGB color values [r, g, b].
+ *
+ * Found on Stack Overflow and slightly modified for Scoultimate
+ *
+ * Couldn't find the link to the StackOverflow answer, but found an Apple Open Source archive
+ * with this:
+ * https://opensource.apple.com/source/WebInspectorUI/WebInspectorUI-7608.3.10.1.4/UserInterface/Models/Color.js.auto.html#:~:text=static%20hsl2rgb(h%2C%20s%2C%20l)
+ */
+export function HSLToRGB(
+  h: number,
+  s: number,
+  l: number
+): [number, number, number] {
   // Must be fractions of 1
   s /= 100;
   l /= 100;

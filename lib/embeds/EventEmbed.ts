@@ -18,10 +18,10 @@ export function generateEventEmbed(embedData: EventEmbed): EmbedBuilder {
     .setDescription(
       `**${getCountryEmoji(embedData.country)} ${embedData.location} - Week ${
         embedData.week != -2 ? embedData.week : "NA"
-      } Event** \n${format(embedData.start, "PPPP")} - ${format(
-        embedData.end,
+      } ${embedData.event_type} Event** \n${format(
+        embedData.start,
         "PPPP"
-      )}`
+      )} - ${format(embedData.end, "PPPP")}`
     );
 
   if (embedData.top) {

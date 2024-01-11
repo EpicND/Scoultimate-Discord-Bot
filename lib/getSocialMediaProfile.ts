@@ -1,10 +1,15 @@
 import { APITeamSocialMedia } from "../models/APIModels/APITeamSocialMediaModel";
 import { SocialProfile } from "../models/EmbedModels/TeamEmbedModel";
 
+/**
+ * Retrieves the social media profile information based on the given API team social media object.
+ * @param profile The API team social media object.
+ * @returns The social profile containing the service, URL, and ID of the profile.
+ */
 export function getSocialMediaProfile(
   profile: APITeamSocialMedia
 ): SocialProfile {
-  let service, url;
+  let service: string, url;
 
   switch (profile.type) {
     // TODO -- account for other platforms
