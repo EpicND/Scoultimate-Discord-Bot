@@ -11,6 +11,41 @@ import { generateErrorEmbed } from "../../lib/embeds/ErrorEmbed";
 import { APIEventRankings } from "../../models/APIModels/APIEventRankingsModel";
 import constants from "../../constants";
 
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("event")
+    .setDescription("Retrieves the data for an event.")
+    .addStringOption((option) =>
+      option
+        .setName("key")
+        .setDescription("The FIRST event key of the event you are requesting.")
+        .setRequired(true)
+    ),
+
+  async execute(interaction: ChatInputCommandInteraction) {
+    const key = interaction.options.get("key")?.value as string;
+
+    await interaction.reply({
+      embeds: [generateLoadingEmbed({ type: "Event", key })],
+    });
+
+    try {
+      const embed = await retrieveEmbed(key);
+      interaction.editReply({ embeds: [embed] });
+    } catch (e) {
+      console.error(e);
+
+      const embed = generateErrorEmbed({
+        error: `Error loading data. Please make sure ${key} is a valid event key.`,
+      });
+
+      interaction.editReply({
+        embeds: [embed],
+      });
+    }
+  },
+};
+
 /**
  * Retrieves an embed for a specific event.
  * @param key - The key of the event.
@@ -90,38 +125,3 @@ function getTopTeams(rankingData: APIEventRankings) {
     },
   };
 }
-
-module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("event")
-    .setDescription("Retrieves the data for an event.")
-    .addStringOption((option) =>
-      option
-        .setName("key")
-        .setDescription("The FIRST event key of the event you are requesting.")
-        .setRequired(true)
-    ),
-
-  async execute(interaction: ChatInputCommandInteraction) {
-    const key = interaction.options.get("key")?.value as string;
-
-    await interaction.reply({
-      embeds: [generateLoadingEmbed({ type: "Event", key })],
-    });
-
-    try {
-      const embed = await retrieveEmbed(key);
-      interaction.editReply({ embeds: [embed] });
-    } catch (e) {
-      console.error(e);
-
-      const embed = generateErrorEmbed({
-        error: `Error loading data. Please make sure ${key} is a valid event key.`,
-      });
-
-      interaction.editReply({
-        embeds: [embed],
-      });
-    }
-  },
-};

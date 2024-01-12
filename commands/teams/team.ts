@@ -13,6 +13,29 @@ import constants from "../../constants";
 import { generateLoadingEmbed } from "../../lib/embeds/LoadingEmbed";
 import { getSocialMediaProfile } from "../../lib/getSocialMediaProfile";
 
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("team")
+    .setDescription("Retrieves the data for a specific team.")
+    .addStringOption((option) =>
+      option
+        .setName("number")
+        .setDescription("The team number of the FRC team you are requesting.")
+        .setRequired(true)
+    ),
+  async execute(interaction: ChatInputCommandInteraction) {
+    const key = interaction.options.get("number")?.value as string;
+
+    await interaction.reply({
+      embeds: [generateLoadingEmbed({ key, type: "Team" })],
+    });
+
+    const embed = await retrieveEmbed(key);
+
+    interaction.editReply({ embeds: [embed] });
+  },
+};
+
 async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
   const { country, city, state_prov, nickname, name, rookie_year } =
     await get<APITeam>(`team/frc${team}`);
@@ -45,26 +68,3 @@ async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
 
   return embed;
 }
-
-module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("team")
-    .setDescription("Retrieves the data for a specific team.")
-    .addStringOption((option) =>
-      option
-        .setName("number")
-        .setDescription("The team number of the FRC team you are requesting.")
-        .setRequired(true)
-    ),
-  async execute(interaction: ChatInputCommandInteraction) {
-    const key = interaction.options.get("number")?.value as string;
-
-    await interaction.reply({
-      embeds: [generateLoadingEmbed({ key, type: "Team" })],
-    });
-
-    const embed = await retrieveEmbed(key);
-
-    interaction.editReply({ embeds: [embed] });
-  },
-};
