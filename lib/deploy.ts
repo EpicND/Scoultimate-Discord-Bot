@@ -38,6 +38,26 @@ export default function deploy() {
   // Construct and prepare an instance of the REST module
   const rest = new REST().setToken(constants.bot_token);
 
+  if (process.env.CLEAR == "1") {
+    // for guild-based commands
+    rest
+      .put(
+        Routes.applicationGuildCommands(
+          constants.client_id,
+          constants.guild_id
+        ),
+        { body: [] }
+      )
+      .then(() => console.log("Successfully deleted all guild commands."))
+      .catch(console.error);
+
+    // for global commands
+    rest
+      .put(Routes.applicationCommands(constants.client_id), { body: [] })
+      .then(() => console.log("Successfully deleted all application commands."))
+      .catch(console.error);
+  }
+
   // and deploy your commands!
   (async () => {
     try {
