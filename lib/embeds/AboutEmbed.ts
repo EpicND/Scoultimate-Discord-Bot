@@ -9,7 +9,7 @@ export function getAboutEmbed(embedData: AboutEmbed): EmbedBuilder {
   const { guilds, users, channels, uptime, memory } = embedData;
   const { days, hours, minutes, seconds } = uptime;
 
-  const val = (512 * 512) / (memory * memory);
+  const val = (128 * 128) / (memory * memory);
 
   var [r, g, b] = HSLToRGB(val, 95, 63);
 
