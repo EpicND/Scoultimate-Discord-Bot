@@ -1,7 +1,10 @@
 import constants from "../../constants";
+import { AutocompleteOption } from "../../models/AutocompleteOptionModel";
 import { getTeamsList } from "../lists/teamList";
 
-export async function TeamAutocomplete(input: string) {
+export async function TeamAutocomplete(
+  input: string
+): Promise<AutocompleteOption[]> {
   input = input.toLowerCase();
 
   const options = (await getTeamsList()).filter(

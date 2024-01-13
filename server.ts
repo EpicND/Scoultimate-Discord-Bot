@@ -88,10 +88,16 @@ client.on(Events.InteractionCreate, async (interaction) => {
 });
 
 async function start() {
-  await loadTeams();
-  await loadEvents();
+  loadTeams();
+  loadEvents();
   deploy();
   client.login(constants.bot_token);
 }
+
+client.on("error", console.error);
+
+process.on("unhandledRejection", (error) => {
+  console.log("error:", error);
+});
 
 start();

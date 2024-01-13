@@ -9,7 +9,7 @@ import { APITeam } from "../../models/APIModels/APITeamModel";
 import { APITeamSocialMedia } from "../../models/APIModels/APITeamSocialMediaModel";
 import { APITeamAward } from "../../models/APIModels/APITeamAwardModel";
 import { generateTeamEmbed } from "../../lib/embeds/TeamEmbed";
-import { APITeamEvent } from "../../models/APIModels/APITeamEvent";
+import { APITeamEvent } from "../../models/APIModels/APITeamEventModel";
 import constants from "../../constants";
 import { generateLoadingEmbed } from "../../lib/embeds/LoadingEmbed";
 import { getSocialMediaProfile } from "../../lib/getSocialMediaProfile";
@@ -55,7 +55,7 @@ module.exports = {
     const focusedValue = interaction.options.getFocused();
 
     try {
-      interaction.respond(await TeamAutocomplete(focusedValue));
+      interaction.respond(await TeamAutocomplete(focusedValue)).catch();
     } catch (e) {
       console.error(e);
     }

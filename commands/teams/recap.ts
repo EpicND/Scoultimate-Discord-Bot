@@ -4,6 +4,8 @@ import {
   SlashCommandBuilder,
 } from "discord.js";
 import { TeamAutocomplete } from "../../lib/autocomplete/teamAutocomplete";
+import { TeamYearAutocomplete } from "../../lib/autocomplete/teamYearAutocomplete";
+import { getMaxYear } from "../../lib/get";
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -17,14 +19,31 @@ module.exports = {
         .setRequired(true)
     )
     .addNumberOption((option) =>
-      option.setName("year").setDescription("The year you want recap data of.")
+      option
+        .setName("year")
+        .setDescription("The year you want recap data of.")
+        .setAutocomplete(true)
     ),
 
-  async execute(interaction: ChatInputCommandInteraction) {},
+  async execute(interaction: ChatInputCommandInteraction) {
+    const team = interaction.options.getNumber("team");
+    const year = interaction.options.getNumber("year") || (await getMaxYear());
+  },
 
   async autocomplete(interaction: AutocompleteInteraction) {
-    const focusedValue = interaction.options.getFocused();
+    const focusedValue = interaction.options.getFocused(true);
 
-    interaction.respond(await TeamAutocomplete(focusedValue));
+    const team = interaction.options.getNumber("team") || 0;
+    const year = interaction.options.getNumber("year") || undefined;
+
+    try {
+      if (focusedValue.name == "team") {
+        interaction.respond(await TeamAutocomplete(focusedValue.value)).catch();
+      } else if (focusedValue.name == "year") {
+        interaction.respond(await TeamYearAutocomplete(team, year)).catch();
+      }
+    } catch (e) {
+      console.error(e);
+    }
   },
 };

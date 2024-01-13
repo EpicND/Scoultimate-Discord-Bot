@@ -1,7 +1,10 @@
 import constants from "../../constants";
+import { AutocompleteOption } from "../../models/AutocompleteOptionModel";
 import { getEventsList } from "../lists/eventList";
 
-export async function EventAutocomplete(input: string) {
+export async function EventAutocomplete(
+  input: string
+): Promise<AutocompleteOption[]> {
   input = input.toLowerCase();
 
   const options = (await getEventsList()).filter(

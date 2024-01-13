@@ -53,7 +53,7 @@ module.exports = {
     const focusedValue = interaction.options.getFocused();
 
     try {
-      interaction.respond(await EventAutocomplete(focusedValue));
+      interaction.respond(await EventAutocomplete(focusedValue)).catch();
     } catch (e) {
       console.error(e);
     }
@@ -86,7 +86,7 @@ async function retrieveEmbed(key: string): Promise<EmbedBuilder> {
 
   const embed = generateEventEmbed({
     event_name: name,
-    event_type: event_type_string, // TODO - add support for event types by TBA's specification
+    event_type: event_type_string,
     key: key,
     week: week !== null && week !== undefined ? week + 1 : -2,
     start: new Date(start_date),
@@ -116,25 +116,25 @@ function getTopTeams(rankingData: APIEventRankings) {
   return {
     1: {
       record: {
-        w: rankings[0].record.wins,
-        l: rankings[0].record.losses,
-        t: rankings[0].record.ties,
+        w: rankings[0].record?.wins || 0,
+        l: rankings[0].record?.losses || 0,
+        t: rankings[0].record?.ties || 0,
       },
       team: rankings[0].team_key.substring(3),
     },
     2: {
       record: {
-        w: rankings[1].record.wins,
-        l: rankings[1].record.losses,
-        t: rankings[1].record.ties,
+        w: rankings[1].record?.wins || 0,
+        l: rankings[1].record?.losses || 0,
+        t: rankings[1].record?.ties || 0,
       },
       team: rankings[1].team_key.substring(3),
     },
     3: {
       record: {
-        w: rankings[2].record.wins,
-        l: rankings[2].record.losses,
-        t: rankings[2].record.ties,
+        w: rankings[2].record?.wins || 0,
+        l: rankings[2].record?.losses || 0,
+        t: rankings[2].record?.ties || 0,
       },
       team: rankings[2].team_key.substring(3),
     },
