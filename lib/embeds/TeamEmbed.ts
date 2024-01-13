@@ -1,7 +1,7 @@
 import constants from "../../constants";
 import { TeamEmbed } from "../../models/EmbedModels/TeamEmbedModel";
 import { getCountryEmoji } from "../getCountryEmoji";
-import { getStandardEmbed } from "./Generate";
+import { getStandardEmbed } from "./generate";
 import vibrant from "node-vibrant";
 
 export async function generateTeamEmbed(embedData: TeamEmbed) {

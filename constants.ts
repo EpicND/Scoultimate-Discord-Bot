@@ -12,6 +12,9 @@ export default {
   tba_base_url: process.env.TBA_BASE_URL || "https://www.thebluealliance.com",
   bot_logo_url: process.env.BOT_LOGO_URL || "",
   cloudinary_bucket_url: process.env.CLOUDINARY_BUCKET_URL || "",
+  discord_autocomplete_max_options: 25,
+  discord_autocomplete_max_value_length: 100,
+  base_event_year: 2001,
 };
 
 interface embedConstants {

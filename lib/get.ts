@@ -1,8 +1,11 @@
 import constants from "../constants";
+import { APIStatus } from "../models/APIModels/APIStatusModel";
 
 const requestHeaders = new Headers({
   "X-TBA-Auth-Key": constants.tba_key,
 });
+
+let maxYear: number;
 
 /**
  * Makes a GET request to the specified path and returns the response data.
@@ -13,6 +16,15 @@ const requestHeaders = new Headers({
 export async function get<T>(path: string): Promise<T> {
   const data = await apiRequest(path);
   return data as T;
+}
+
+export async function getMaxYear() {
+  if (maxYear) return maxYear;
+
+  const { max_season } = await get<APIStatus>("status");
+  maxYear = max_season;
+
+  return maxYear;
 }
 
 /**

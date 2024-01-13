@@ -1,5 +1,5 @@
 import { EmbedBuilder } from "discord.js";
-import { getStandardEmbed } from "./Generate";
+import { getStandardEmbed } from "./generate";
 import { AboutEmbed } from "../../models/EmbedModels/AboutEmbedModel";
 import { HSLToRGB } from "../hslToRGB";
 

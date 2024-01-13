@@ -1,4 +1,4 @@
 export interface LoadingEmbed {
-  key: string;
+  key: string | number;
   type: "Event" | "Team";
 }

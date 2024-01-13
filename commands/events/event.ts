@@ -1,4 +1,5 @@
 import {
+  AutocompleteInteraction,
   ChatInputCommandInteraction,
   EmbedBuilder,
   SlashCommandBuilder,
@@ -10,6 +11,7 @@ import { generateLoadingEmbed } from "../../lib/embeds/LoadingEmbed";
 import { generateErrorEmbed } from "../../lib/embeds/ErrorEmbed";
 import { APIEventRankings } from "../../models/APIModels/APIEventRankingsModel";
 import constants from "../../constants";
+import { EventAutocomplete } from "../../lib/autocomplete/eventAutocomplete";
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -19,6 +21,7 @@ module.exports = {
       option
         .setName("key")
         .setDescription("The FIRST event key of the event you are requesting.")
+        .setAutocomplete(true)
         .setRequired(true)
     ),
 
@@ -37,11 +40,22 @@ module.exports = {
 
       const embed = generateErrorEmbed({
         error: `Error loading data. Please make sure ${key} is a valid event key.`,
+        command: "/event",
       });
 
       interaction.editReply({
         embeds: [embed],
       });
+    }
+  },
+
+  async autocomplete(interaction: AutocompleteInteraction) {
+    const focusedValue = interaction.options.getFocused();
+
+    try {
+      interaction.respond(await EventAutocomplete(focusedValue));
+    } catch (e) {
+      console.error(e);
     }
   },
 };
@@ -94,7 +108,8 @@ async function retrieveEmbed(key: string): Promise<EmbedBuilder> {
 
 function getTopTeams(rankingData: APIEventRankings) {
   if (rankingData == null || rankingData == undefined) return undefined;
-  if (rankingData.rankings.length == 0) return undefined;
+  if (!rankingData.rankings || rankingData.rankings.length == 0)
+    return undefined;
 
   const rankings = rankingData.rankings;
 

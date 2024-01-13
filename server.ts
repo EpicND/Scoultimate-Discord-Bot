@@ -6,6 +6,9 @@ import constants from "./constants";
 import { ClientWithCommands } from "./types";
 import deploy from "./lib/deploy";
 
+import { loadTeams } from "./lib/lists/teamList";
+import { loadEvents } from "./lib/lists/eventList";
+
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages],
 }) as ClientWithCommands;
@@ -84,6 +87,11 @@ client.on(Events.InteractionCreate, async (interaction) => {
   }
 });
 
-deploy();
+async function start() {
+  await loadTeams();
+  await loadEvents();
+  deploy();
+  client.login(constants.bot_token);
+}
 
-client.login(constants.bot_token);
+start();
