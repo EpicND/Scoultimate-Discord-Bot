@@ -8,7 +8,8 @@ import { TeamYearAutocomplete } from "../../lib/autocomplete/teamYearAutocomplet
 import { getMaxYear } from "../../lib/get";
 import { SlashCommand } from "../../types";
 
-const recap: SlashCommand = {
+const recap = {
+  // TODO -- IMPLEMENT EXECUTE
   data: new SlashCommandBuilder()
     .setName("recap")
     .setDescription("Provides a recap of a team's season in a given year.")
@@ -26,10 +27,10 @@ const recap: SlashCommand = {
         .setAutocomplete(true)
     ),
 
-  async execute(interaction: ChatInputCommandInteraction) {
-    const team = interaction.options.getNumber("team");
-    const year = interaction.options.getNumber("year") || (await getMaxYear());
-  },
+  // async execute(interaction: ChatInputCommandInteraction) {
+  //   const team = interaction.options.getNumber("team");
+  //   const year = interaction.options.getNumber("year") || (await getMaxYear());
+  // },
 
   async autocomplete(interaction: AutocompleteInteraction) {
     const focusedValue = interaction.options.getFocused(true);
