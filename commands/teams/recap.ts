@@ -6,8 +6,9 @@ import {
 import { TeamAutocomplete } from "../../lib/autocomplete/teamAutocomplete";
 import { TeamYearAutocomplete } from "../../lib/autocomplete/teamYearAutocomplete";
 import { getMaxYear } from "../../lib/get";
+import { SlashCommand } from "../../types";
 
-module.exports = {
+const recap: SlashCommand = {
   data: new SlashCommandBuilder()
     .setName("recap")
     .setDescription("Provides a recap of a team's season in a given year.")
@@ -47,3 +48,5 @@ module.exports = {
     }
   },
 };
+
+export default recap;

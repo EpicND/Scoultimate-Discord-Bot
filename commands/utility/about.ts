@@ -1,7 +1,8 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 import { getAboutEmbed } from "../../lib/embeds/AboutEmbed";
+import { SlashCommand } from "../../types";
 
-module.exports = {
+const about: SlashCommand = {
   data: new SlashCommandBuilder()
     .setName("about")
     .setDescription("Retrieves information about Scoultimate!"),
@@ -24,3 +25,5 @@ module.exports = {
     interaction.reply({ embeds: [embed] });
   },
 };
+
+export default about;

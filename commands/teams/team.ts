@@ -15,8 +15,9 @@ import { generateLoadingEmbed } from "../../lib/embeds/LoadingEmbed";
 import { getSocialMediaProfile } from "../../lib/getSocialMediaProfile";
 import { TeamAutocomplete } from "../../lib/autocomplete/teamAutocomplete";
 import { generateErrorEmbed } from "../../lib/embeds/ErrorEmbed";
+import { SlashCommand } from "../../types";
 
-module.exports = {
+const team: SlashCommand = {
   data: new SlashCommandBuilder()
     .setName("team")
     .setDescription("Retrieves the data for a specific team.")
@@ -93,3 +94,5 @@ async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
 
   return embed;
 }
+
+export default team;

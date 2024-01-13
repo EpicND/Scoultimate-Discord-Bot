@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
+import { SlashCommand } from "../../types";
 
-module.exports = {
+const ping: SlashCommand = {
   data: new SlashCommandBuilder()
     .setName("ping")
     .setDescription("Tests the ping of the bot."),
@@ -12,3 +13,5 @@ module.exports = {
     );
   },
 };
+
+export default ping;

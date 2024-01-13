@@ -3,15 +3,14 @@ import path from "node:path";
 
 import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
 import constants from "./constants";
-import { ClientWithCommands } from "./types";
 import deploy from "./lib/deploy";
 
 import { loadTeams } from "./lib/lists/teamList";
 import { loadEvents } from "./lib/lists/eventList";
 
-const client = new Client({
+const client: Client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages],
-}) as ClientWithCommands;
+});
 
 client.commands = new Collection();
 
@@ -26,7 +25,7 @@ for (const folder of commandFolders) {
 
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
-    const command = require(filePath);
+    const command = require(filePath).default;
 
     // Set a new item in the Collection with the key as the command name and the value as the exported module
     if ("data" in command && "execute" in command) {

@@ -12,8 +12,9 @@ import { generateErrorEmbed } from "../../lib/embeds/ErrorEmbed";
 import { APIEventRankings } from "../../models/APIModels/APIEventRankingsModel";
 import constants from "../../constants";
 import { EventAutocomplete } from "../../lib/autocomplete/eventAutocomplete";
+import { SlashCommand } from "../../types";
 
-module.exports = {
+const event: SlashCommand = {
   data: new SlashCommandBuilder()
     .setName("event")
     .setDescription("Retrieves the data for an event.")
@@ -140,3 +141,5 @@ function getTopTeams(rankingData: APIEventRankings) {
     },
   };
 }
+
+export default event;
