@@ -4,18 +4,19 @@ import {
   EmbedBuilder,
   SlashCommandBuilder,
 } from "discord.js";
-import { get } from "../../lib/get";
-import { APITeam } from "../../models/APIModels/APITeamModel";
-import { APITeamSocialMedia } from "../../models/APIModels/APITeamSocialMediaModel";
-import { APITeamAward } from "../../models/APIModels/APITeamAwardModel";
+import { get, getMaxYear } from "../../lib/get";
+import { APITeam } from "../../models/APIModels/TBA/APITeamModel";
+import { APITeamSocialMedia } from "../../models/APIModels/TBA/APITeamSocialMediaModel";
+import { APITeamAward } from "../../models/APIModels/TBA/APITeamAwardModel";
 import { generateTeamEmbed } from "../../lib/embeds/TeamEmbed";
-import { APITeamEvent } from "../../models/APIModels/APITeamEventModel";
+import { APITeamEvent } from "../../models/APIModels/TBA/APITeamEventModel";
 import constants from "../../constants";
 import { generateLoadingEmbed } from "../../lib/embeds/LoadingEmbed";
 import { getSocialMediaProfile } from "../../lib/getSocialMediaProfile";
 import { TeamAutocomplete } from "../../lib/autocomplete/teamAutocomplete";
 import { generateErrorEmbed } from "../../lib/embeds/ErrorEmbed";
 import { SlashCommand } from "../../types";
+import { APITeamStatbotics } from "../../models/APIModels/Statbotics/APITeamModel";
 
 const team: SlashCommand = {
   data: new SlashCommandBuilder()
@@ -64,17 +65,22 @@ const team: SlashCommand = {
 };
 
 async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
-  const { country, city, state_prov, nickname, name, rookie_year } =
-    await get<APITeam>(`team/frc${team}`);
-
-  const socialMedia = await get<APITeamSocialMedia[]>(
-    `team/frc${team}/social_media`
-  );
-
-  const awards = await get<APITeamAward[]>(`team/frc${team}/awards`);
-  const events = await get<APITeamEvent[]>(
-    `team/frc${team}/events/${new Date().getFullYear()}`
-  );
+  const [
+    { country, city, state_prov, nickname, name, rookie_year },
+    socialMedia,
+    awards,
+    events,
+    { epa_end },
+  ] = await Promise.all([
+    get<APITeam>(`team/frc${team}`),
+    get<APITeamSocialMedia[]>(`team/frc${team}/social_media`),
+    get<APITeamAward[]>(`team/frc${team}/awards`),
+    get<APITeamEvent[]>(`team/frc${team}/events/${await getMaxYear()}`),
+    get<APITeamStatbotics>(
+      `team_year/${team}/${await getMaxYear()}`,
+      "Statbotics"
+    ).catch((err) => ({ epa_end: "NA" })),
+  ]);
 
   const embed = await generateTeamEmbed({
     team_name: nickname || name,
@@ -90,6 +96,7 @@ async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
     profiles: socialMedia.map((value) => {
       return getSocialMediaProfile(value);
     }),
+    epa: epa_end,
   });
 
   return embed;

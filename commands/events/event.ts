@@ -6,10 +6,10 @@ import {
 } from "discord.js";
 import { get } from "../../lib/get";
 import { generateEventEmbed } from "../../lib/embeds/EventEmbed";
-import { APIEvent } from "../../models/APIModels/APIEventModel";
+import { APIEvent } from "../../models/APIModels/TBA/APIEventModel";
 import { generateLoadingEmbed } from "../../lib/embeds/LoadingEmbed";
 import { generateErrorEmbed } from "../../lib/embeds/ErrorEmbed";
-import { APIEventRankings } from "../../models/APIModels/APIEventRankingsModel";
+import { APIEventRankings } from "../../models/APIModels/TBA/APIEventRankingsModel";
 import constants from "../../constants";
 import { EventAutocomplete } from "../../lib/autocomplete/eventAutocomplete";
 import { SlashCommand } from "../../types";

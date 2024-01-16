@@ -1,4 +1,4 @@
-import { APITeam } from "../../models/APIModels/APITeamModel";
+import { APITeam } from "../../models/APIModels/TBA/APITeamModel";
 import { get } from "../get";
 
 var allTeams: APITeam[];

@@ -19,6 +19,7 @@ export async function generateTeamEmbed(embedData: TeamEmbed) {
     state_prov,
     rookie_year,
     logo_url,
+    epa,
   } = embedData;
 
   embed.setURL(`${constants.tba_base_url}/team/${team_number}`);
@@ -30,6 +31,12 @@ export async function generateTeamEmbed(embedData: TeamEmbed) {
       `${getCountryEmoji(country)} ${city}, ${state_prov}, ${country}`
     );
   }
+
+  embed.addFields({
+    name: "**Year EPA**",
+    inline: true,
+    value: `${epa}`,
+  });
 
   embed.addFields({
     name: "**Awards**",

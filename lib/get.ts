@@ -1,7 +1,7 @@
 import constants from "../constants";
-import { APIStatus } from "../models/APIModels/APIStatusModel";
+import { APIStatus } from "../models/APIModels/TBA/APIStatusModel";
 
-const requestHeaders = new Headers({
+const tbaRequestHeaders = new Headers({
   "X-TBA-Auth-Key": constants.tba_key,
 });
 
@@ -13,8 +13,11 @@ let maxYear: number;
  * @returns A Promise that resolves to the response data.
  * @template T - The type of the response data.
  */
-export async function get<T>(path: string): Promise<T> {
-  const data = await apiRequest(path);
+export async function get<T>(
+  path: string,
+  type: "TBA" | "Statbotics" = "TBA"
+): Promise<T> {
+  const data = await apiRequest(path, type);
   return data as T;
 }
 
@@ -33,15 +36,25 @@ export async function getMaxYear() {
  * @returns A Promise that resolves to the response data.
  * @throws An error if the HTTP status code is not 200.
  */
-async function apiRequest(path: string): Promise<any> {
-  const data = await fetch(`${constants.tba_base_api_url}/${path}`, {
-    method: "GET",
-    headers: requestHeaders,
-  });
+async function apiRequest(
+  path: string,
+  type: "TBA" | "Statbotics"
+): Promise<any> {
+  const data = await fetch(
+    `${
+      type === "TBA"
+        ? constants.tba_base_api_url
+        : constants.statbotics_base_api_url
+    }/${path}`,
+    {
+      method: "GET",
+      headers: type === "TBA" ? tbaRequestHeaders : undefined,
+    }
+  );
 
   if (data.status != 200) {
     let resp = await data.json();
-    throw new Error(
+    return Promise.reject(
       "Received Non-200 HTTP code: " +
         data.status +
         ". JSON Body was: " +

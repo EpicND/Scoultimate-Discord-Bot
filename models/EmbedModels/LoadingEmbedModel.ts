@@ -1,4 +1,4 @@
 export interface LoadingEmbed {
   key: string | number;
-  type: "Event" | "Team";
+  type: "Event" | "Team" | "Season Recap";
 }

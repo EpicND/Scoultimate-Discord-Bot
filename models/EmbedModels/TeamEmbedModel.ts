@@ -10,6 +10,7 @@ export interface TeamEmbed {
   state_prov?: string;
   logo_url: string;
   rookie_year?: number;
+  epa: number | string;
 }
 
 export interface Award {

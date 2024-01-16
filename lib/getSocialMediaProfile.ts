@@ -1,4 +1,4 @@
-import { APITeamSocialMedia } from "../models/APIModels/APITeamSocialMediaModel";
+import { APITeamSocialMedia } from "../models/APIModels/TBA/APITeamSocialMediaModel";
 import { SocialProfile } from "../models/EmbedModels/TeamEmbedModel";
 
 /**

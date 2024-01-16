@@ -5,7 +5,8 @@
   "main": "server.ts",
   "type": "commonjs",
   "scripts": {
-    "test": "nodemon server.ts",
+    "watch": "tsc -w",
+    "dev": "nodemon build/server.js",
     "build": "tsc",
     "start": "node build/server.js"
   },

@@ -10,6 +10,8 @@ export default {
     process.env.TBA_BASE_API_URL || "https://www.thebluealliance.com/api/v3",
   tba_key: process.env.TBA_KEY || "",
   tba_base_url: process.env.TBA_BASE_URL || "https://www.thebluealliance.com",
+  statbotics_base_api_url:
+    process.env.STATBOTICS_BASE_URL || "https://api.statbotics.io/v2",
   bot_logo_url: process.env.BOT_LOGO_URL || "",
   cloudinary_bucket_url: process.env.CLOUDINARY_BUCKET_URL || "",
   discord_autocomplete_max_options: 25,

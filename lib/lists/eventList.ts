@@ -1,5 +1,5 @@
 import constants from "../../constants";
-import { APIEvent } from "../../models/APIModels/APIEventModel";
+import { APIEvent } from "../../models/APIModels/TBA/APIEventModel";
 import { get, getMaxYear } from "../get";
 
 var allEvents: APIEvent[];
