@@ -9,7 +9,7 @@
     "dev": "nodemon build/server.js",
     "build": "tsc",
     "serve": "node build/server.js",
-    "start": "npm run build && npm run start"
+    "start": "npm run build && npm run serve"
   },
   "repository": {
     "type": "git",
