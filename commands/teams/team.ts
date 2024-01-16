@@ -65,6 +65,7 @@ const team: SlashCommand = {
 };
 
 async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
+  const maxYear = await getMaxYear();
   const [
     { country, city, state_prov, nickname, name, rookie_year },
     socialMedia,
@@ -75,11 +76,10 @@ async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
     get<APITeam>(`team/frc${team}`),
     get<APITeamSocialMedia[]>(`team/frc${team}/social_media`),
     get<APITeamAward[]>(`team/frc${team}/awards`),
-    get<APITeamEvent[]>(`team/frc${team}/events/${await getMaxYear()}`),
-    get<APITeamStatbotics>(
-      `team_year/${team}/${await getMaxYear()}`,
-      "Statbotics"
-    ).catch((err) => ({ epa_end: "NA" })),
+    get<APITeamEvent[]>(`team/frc${team}/events/${maxYear}`),
+    get<APITeamStatbotics>(`team_year/${team}/${maxYear}`, "Statbotics").catch(
+      () => ({ epa_end: "NA" })
+    ),
   ]);
 
   const embed = await generateTeamEmbed({
