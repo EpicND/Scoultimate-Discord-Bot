@@ -17,7 +17,7 @@ export async function get<T>(
   path: string,
   type: "TBA" | "Statbotics" = "TBA"
 ): Promise<T> {
-  const data = await apiRequest(path, type);
+  const data = apiRequest(path, type);
   return data as T;
 }
 
