@@ -8,7 +8,8 @@
     "watch": "tsc -w",
     "dev": "nodemon build/server.js",
     "build": "tsc",
-    "start": "node build/server.js"
+    "start": "node build/server.js",
+    "full": "npm run build && npm run start"
   },
   "repository": {
     "type": "git",
