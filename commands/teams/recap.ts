@@ -6,7 +6,6 @@ import {
 import { TeamAutocomplete } from "../../lib/autocomplete/teamAutocomplete";
 import { TeamYearAutocomplete } from "../../lib/autocomplete/teamYearAutocomplete";
 import { getMaxYear } from "../../lib/get";
-import { SlashCommand } from "../../types";
 import { generateLoadingEmbed } from "../../lib/embeds/LoadingEmbed";
 
 const recap = {
@@ -28,19 +27,19 @@ const recap = {
         .setAutocomplete(true)
     ),
 
-  // async execute(interaction: ChatInputCommandInteraction) {
-  //   const team = interaction.options.getNumber("team");
-  //   const year = interaction.options.getNumber("year") || (await getMaxYear());
+  async execute(interaction: ChatInputCommandInteraction) {
+    const team = interaction.options.getNumber("team");
+    const year = interaction.options.getNumber("year") || (await getMaxYear());
 
-  //   interaction.reply({
-  //     embeds: [
-  //       generateLoadingEmbed({
-  //         key: `${team} for ${year}`,
-  //         type: "Season Recap",
-  //       }),
-  //     ],
-  //   });
-  // },
+    interaction.reply({
+      embeds: [
+        generateLoadingEmbed({
+          key: `${team} for ${year}`,
+          type: "Season Recap",
+        }),
+      ],
+    });
+  },
 
   async autocomplete(interaction: AutocompleteInteraction) {
     const focusedValue = interaction.options.getFocused(true);

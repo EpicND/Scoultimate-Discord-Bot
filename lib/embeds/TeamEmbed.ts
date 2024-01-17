@@ -2,7 +2,7 @@ import constants from "../../constants";
 import { TeamEmbed } from "../../models/EmbedModels/TeamEmbedModel";
 import { getCountryEmoji } from "../getCountryEmoji";
 import { getStandardEmbed } from "./generate";
-import vibrant from "node-vibrant";
+import { setEmbedColor } from "./vibrant";
 
 export async function generateTeamEmbed(embedData: TeamEmbed) {
   const embed = getStandardEmbed("/team", "Team Info");
@@ -80,25 +80,7 @@ export async function generateTeamEmbed(embedData: TeamEmbed) {
 
   // used node-vibrant to add color to the embed based on team profile photo.
 
-  try {
-    if (logo_url) {
-      const rgb = (await vibrant.from(logo_url).getPalette()).Vibrant?.rgb;
-
-      if (rgb) {
-        embed.setColor([
-          // all of this converting is an edge case where vibrant provides an extremely large
-          // value, and it doesn't convert to a regular integer (reproduce by getting rid of the
-          // parseInt and trying the command for team 1729)
-          parseInt(`${rgb[0]}`),
-          parseInt(`${rgb[1]}`),
-          parseInt(`${rgb[2]}`),
-        ]);
-      }
-    }
-  } catch (e) {
-    // vibrant failed -- no need to do anything w this error -- not fatal
-    console.log(`Team: ${team_number}, error: ${e}`);
-  }
+  setEmbedColor(embed, logo_url, team_number);
 
   return embed;
 }

@@ -54,7 +54,7 @@ const event: SlashCommand = {
     const focusedValue = interaction.options.getFocused();
 
     try {
-      interaction.respond(await EventAutocomplete(focusedValue)).catch();
+      interaction.respond(await EventAutocomplete(focusedValue));
     } catch (e) {
       console.error(e);
     }
@@ -67,9 +67,14 @@ const event: SlashCommand = {
  * @returns The embed for the event.
  */
 async function retrieveEmbed(key: string): Promise<EmbedBuilder> {
-  const data = await get<APIEvent>(`event/${key}`);
+  // const data = await get<APIEvent>(`event/${key}`);
 
-  const rankings = await get<APIEventRankings>(`event/${key}/rankings`);
+  // const rankings = await get<APIEventRankings>(`event/${key}/rankings`);
+
+  const [data, rankings] = await Promise.all([
+    get<APIEvent>(`event/${key}`),
+    get<APIEventRankings>(`event/${key}/rankings`),
+  ]);
 
   const {
     name,
