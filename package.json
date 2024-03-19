@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "watch": "tsc -w",
-    "dev": "nodemon build/server.js",
+    "dev": "nodemon -e ts --exec \"npm run start\"",
     "build": "tsc",
     "serve": "node build/server.js",
     "start": "npm run build && npm run serve"
