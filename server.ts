@@ -7,6 +7,7 @@ import deploy from "./lib/deploy";
 
 import { loadTeams } from "./lib/lists/teamList";
 import { loadEvents } from "./lib/lists/eventList";
+import { incrementTotalCalls } from "./lib/firebase";
 
 const client: Client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages],
@@ -70,6 +71,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
         });
       }
     }
+
+    // Running count of what/how many commands have been used all time (just basic stats)
+    incrementTotalCalls(interaction.commandName);
   } else if (interaction.isAutocomplete()) {
     const command = client.commands.get(interaction.commandName);
 

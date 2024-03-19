@@ -1,6 +1,6 @@
 {
   "name": "scoultimate-discord-bot",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "description": "",
   "main": "server.ts",
   "type": "commonjs",
@@ -25,6 +25,7 @@
     "date-fns": "^3.1.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.1",
+    "firebase-admin": "^12.0.0",
     "node-vibrant": "^3.2.1-alpha.1"
   },
   "devDependencies": {
