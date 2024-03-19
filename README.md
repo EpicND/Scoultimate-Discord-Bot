@@ -37,6 +37,6 @@ Running the code locally can be done in two ways:
 
 2. Production mode
 
-```sh
-npm start
-```
+   ```sh
+   npm start
+   ```
