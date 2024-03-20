@@ -43,7 +43,7 @@ export function getAboutEmbed(embedData: AboutEmbed): EmbedBuilder {
     {
       name: "Contributing",
       value:
-        "Scoultimate is now Open Source! Help contribute to Scoultimate on [GitHub](https://www.github.com/epicnd/Scoultimate-Discord-Bot).",
+        "Scoultimate is now Open Source! Help contribute on [GitHub](https://www.github.com/epicnd/Scoultimate-Discord-Bot).",
     }
   );
 
