@@ -2,7 +2,8 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 export default {
-  version: process.env.BOT_VERSION || "1.0.0",
+  version:
+    process.env.npm_package_version || process.env.BOT_VERSION || "1.0.0",
   bot_token: process.env.BOT_TOKEN || "",
   client_id: process.env.CLIENT_ID || "",
   guild_id: process.env.GUILD_ID || "",

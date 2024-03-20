@@ -6,7 +6,7 @@ import { HSLToRGB } from "../hslToRGB";
 export function getAboutEmbed(embedData: AboutEmbed): EmbedBuilder {
   const embed = getStandardEmbed("/about", "Bot Info");
 
-  const { guilds, users, channels, uptime, memory } = embedData;
+  const { guilds, users, channels, uptime, memory, commandsUsed } = embedData;
   const { days, hours, minutes, seconds } = uptime;
 
   const val = (128 * 128) / (memory * memory);
@@ -38,8 +38,13 @@ export function getAboutEmbed(embedData: AboutEmbed): EmbedBuilder {
       name: `Memory Usage`,
       value: `${memory} MB`,
       inline: true,
+    },
+    { name: `Commands Used`, value: `${commandsUsed}`, inline: false },
+    {
+      name: "Contributing",
+      value:
+        "Scoultimate is now Open Source! Help contribute to Scoultimate on [GitHub](https://www.github.com/epicnd/Scoultimate-Discord-Bot).",
     }
-    // { name: `Commands Used`, value: `${usedCommands}`, inline: false }
   );
 
   embed.setColor([r, g, b]);

@@ -9,4 +9,5 @@ export interface AboutEmbed {
     seconds: number;
   };
   memory: number;
+  commandsUsed: number;
 }

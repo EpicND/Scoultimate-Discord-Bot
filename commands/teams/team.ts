@@ -71,14 +71,14 @@ async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
     socialMedia,
     awards,
     events,
-    { epa_end },
+    { epa_end, total_epa_rank },
   ] = await Promise.all([
     get<APITeam>(`team/frc${team}`),
     get<APITeamSocialMedia[]>(`team/frc${team}/social_media`),
     get<APITeamAward[]>(`team/frc${team}/awards`),
     get<APITeamEvent[]>(`team/frc${team}/events/${maxYear}`),
     get<APITeamStatbotics>(`team_year/${team}/${maxYear}`, "Statbotics").catch(
-      () => ({ epa_end: "NA" })
+      () => ({ epa_end: "NA", total_epa_rank: "Unranked" })
     ),
   ]);
 
@@ -96,7 +96,7 @@ async function retrieveEmbed(team: number | string): Promise<EmbedBuilder> {
     profiles: socialMedia.map((value) => {
       return getSocialMediaProfile(value);
     }),
-    epa: epa_end,
+    epa: `${epa_end} (Rank ${total_epa_rank})`,
   });
 
   return embed;

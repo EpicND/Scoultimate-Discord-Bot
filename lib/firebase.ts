@@ -19,3 +19,10 @@ export async function incrementTotalCalls(cmd: string) {
     [cmd]: FieldValue.increment(1),
   });
 }
+
+export async function getTotalCommandsUsed(): Promise<number> {
+  const ref = db.collection("bot").doc("statistics");
+  const doc = (await ref.get()).data();
+
+  return doc?.total_cmd_used || 0;
+}
