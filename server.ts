@@ -106,3 +106,15 @@ process.on("unhandledRejection", (error) => {
 });
 
 start();
+
+import express from "express";
+
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send("hello");
+});
+
+app.listen(80, () => {
+  console.log("running on port 80");
+});
