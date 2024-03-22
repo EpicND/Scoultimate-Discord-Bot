@@ -4,7 +4,7 @@ import {
   Routes,
   SlashCommandBuilder,
 } from "discord.js";
-import constants from "../constants";
+import constants from "./constants";
 import fs from "node:fs";
 import path from "node:path";
 

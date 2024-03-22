@@ -1,6 +1,6 @@
 import { get } from "../get";
 import { AutocompleteOption } from "../../models/AutocompleteOptionModel";
-import constants from "../../constants";
+import constants from "../constants";
 
 export async function getTeamYearsParticipated(team_number: number) {
   return get<number[]>(`team/frc${team_number}/years_participated`);

@@ -1,6 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 import { LoadingEmbed } from "../../models/EmbedModels/LoadingEmbedModel";
-import { embedConstants } from "../../constants";
+import { embedConstants } from "../constants";
 import { getStandardEmbed } from "./generate";
 
 /**

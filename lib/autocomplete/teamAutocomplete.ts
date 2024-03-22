@@ -1,4 +1,4 @@
-import constants from "../../constants";
+import constants from "../constants";
 import { AutocompleteOption } from "../../models/AutocompleteOptionModel";
 import { getTeamsList } from "../lists/teamList";
 

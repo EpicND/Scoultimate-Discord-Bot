@@ -1,4 +1,4 @@
-import constants from "../../constants";
+import constants from "../constants";
 import { TeamEmbed } from "../../models/EmbedModels/TeamEmbedModel";
 import { getCountryEmoji } from "../getCountryEmoji";
 import { getStandardEmbed } from "./generate";

@@ -10,7 +10,7 @@ import { APITeamSocialMedia } from "../../models/APIModels/TBA/APITeamSocialMedi
 import { APITeamAward } from "../../models/APIModels/TBA/APITeamAwardModel";
 import { generateTeamEmbed } from "../../lib/embeds/TeamEmbed";
 import { APITeamEvent } from "../../models/APIModels/TBA/APITeamEventModel";
-import constants from "../../constants";
+import constants from "../../lib/constants";
 import { generateLoadingEmbed } from "../../lib/embeds/LoadingEmbed";
 import { getSocialMediaProfile } from "../../lib/getSocialMediaProfile";
 import { TeamAutocomplete } from "../../lib/autocomplete/teamAutocomplete";
