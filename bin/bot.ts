@@ -3,7 +3,7 @@ import path from "node:path";
 
 import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
 import constants from "../lib/constants";
-import deploy from "../lib/deploy";
+import deployCommands from "../lib/deploy";
 
 import { loadTeams } from "../lib/lists/teamList";
 import { loadEvents } from "../lib/lists/eventList";
@@ -95,7 +95,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 export async function startBot() {
   loadTeams();
   loadEvents();
-  deploy();
+  deployCommands();
   client.login(constants.bot_token);
 }
 

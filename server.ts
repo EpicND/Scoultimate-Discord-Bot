@@ -25,5 +25,9 @@ console.log("\x1b[0m");
 startBot();
 
 app.listen(PORT, () => {
-  console.log(`running on port ${PORT}`);
+  console.log(
+    "\x1b[1m\x1b[32m",
+    `Webhook Listener Live on Port ${PORT}`,
+    "\x1b[0m"
+  );
 });

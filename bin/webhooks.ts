@@ -9,7 +9,12 @@ app.get("/", (req, res) => {
 });
 
 app.post("/webhooks/new", (req, res) => {
-  console.log(req.body);
+  const { body } = req;
+
+  // TBA verification
+  if (body.message_type == "verification") {
+    console.log(body);
+  }
 
   res.status(200).json({ message: "success" });
 });
