@@ -9,7 +9,7 @@ import { loadTeams } from "../lib/lists/teamList";
 import { loadEvents } from "../lib/lists/eventList";
 import { incrementTotalCalls } from "../lib/firebase";
 
-const client: Client = new Client({
+export const client: Client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.DirectMessages],
 });
 
