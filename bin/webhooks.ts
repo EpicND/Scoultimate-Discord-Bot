@@ -23,7 +23,8 @@ app.post("/webhooks/tba", (req, res) => {
     console.log(req.headers);
     res.json({ error: "Unverified token" }).status(400);
     console.log("Unverified request from", req.ip);
-    console.log(body);
+    // console.log(body);
+    console.log(JSON.stringify(body));
     return;
   }
 
