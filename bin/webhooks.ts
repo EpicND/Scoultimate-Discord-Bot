@@ -18,7 +18,8 @@ app.post("/webhooks/tba", (req, res) => {
   const body = req.body as GeneralWebhook;
 
   // Disallowed request
-  if (process.env.TBA_WEBHOOK_SECRET !== req.get("X-TBA-HMAC")) {
+  if (process.env.TBA_WEBHOOK_SECRET != req.get("X-TBA-HMAC")) {
+    console.log(req.get("X-TBA-HMAC"));
     res.json({ error: "Unverified token" }).status(400);
     console.log("Unverified request from", req.ip);
     return;
