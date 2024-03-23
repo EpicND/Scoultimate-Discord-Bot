@@ -1,12 +1,16 @@
 import express from "express";
 import { client } from "./bot";
+import crypto from "node:crypto";
+
 import {
   GeneralWebhook,
   WebhookTypes,
 } from "../models/WebhookModels/GeneralWebhookModel";
 import { TBAUpcomingMatchNotification } from "../models/WebhookModels/TBAUpcomingMatchNotificationModel";
+import { stringifyWithSpaces } from "../lib/customJson";
 
 export const app = express();
+console.log(process.env.TBA_WEBHOOK_SECRET);
 
 app.use(express.json());
 
@@ -17,14 +21,17 @@ app.get("/", (req, res) => {
 app.post("/webhooks/tba", (req, res) => {
   const body = req.body as GeneralWebhook;
 
+  const hmac = crypto.createHmac("sha256", process.env.TBA_WEBHOOK_SECRET!);
+
   // Disallowed request
-  if (process.env.TBA_WEBHOOK_SECRET != req.get("X-TBA-HMAC")) {
-    console.log(req.get("X-TBA-HMAC"));
-    console.log(req.headers);
-    res.json({ error: "Unverified token" }).status(400);
-    console.log("Unverified request from", req.ip);
-    // console.log(body);
-    console.log(JSON.stringify(body));
+  if (
+    hmac.update(stringifyWithSpaces(body), "utf-8").digest("hex") !=
+      req.get("X-TBA-HMAC") &&
+    body.message_type != WebhookTypes.VERIFICATION
+  ) {
+    console.error("Unverified Request Received from", req.ip);
+    res.json({ error: "Unverified request" }).status(400);
+
     return;
   }
 
