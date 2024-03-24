@@ -23,20 +23,21 @@ app.get("/", (req, res) => {
 app.post("/webhooks/tba", async (req, res) => {
   const body = req.body as GeneralWebhook;
 
-  const hmac = crypto.createHmac("sha256", process.env.TBA_WEBHOOK_SECRET!);
+  // const hmac = crypto.createHmac("sha256", process.env.TBA_WEBHOOK_SECRET!);
 
-  // Disallowed request
-  if (
-    hmac.update(stringifyWithSpaces(body), "utf-8").digest("hex") !=
-      req.get("X-TBA-HMAC") &&
-    body.message_type != WebhookTypes.VERIFICATION
-  ) {
-    console.error("Unverified Request Received from", req.ip);
-    console.log(body);
-    res.json({ error: "Unverified request" }).status(400);
+  // Disallowed request -- this is not working at the moment (non-ascii characters get encoded differently in python.dumps and json.stringify)
 
-    return;
-  }
+  // if (
+  //   hmac.update(stringifyWithSpaces(body), "utf-8").digest("hex") !=
+  //     req.get("X-TBA-HMAC") &&
+  //   body.message_type != WebhookTypes.VERIFICATION
+  // ) {
+  //   console.error("Unverified Request Received from", req.ip);
+  //   console.log(body);
+  //   res.json({ error: "Unverified request" }).status(400);
+
+  //   return;
+  // }
 
   switch (body.message_type) {
     // TBA Verification

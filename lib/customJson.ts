@@ -9,5 +9,6 @@ export function stringifyWithSpaces(obj: object) {
   result = result.replace(/\n/g, ""); // remove line-breaks
   result = result.replace(/{ /g, "{").replace(/ }/g, "}"); // remove spaces between object-braces and first/last props
   result = result.replace(/\[ /g, "[").replace(/ \]/g, "]"); // remove spaces between array-brackets and first/last items
+  result = result.replace(/\\\\\\\\/g, "\\\\");
   return result;
 }

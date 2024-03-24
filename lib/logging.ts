@@ -31,13 +31,18 @@ export enum Colors {
 export function customLog(
   msg: string,
   color: Colors,
-  level: "warn" | "error" | "log"
+  level: "warn" | "error" | "log",
+  bold: boolean = false,
+  underline: boolean = false
 ) {
+  const colorString = `${bold ? Colors.Bright : null}${
+    underline ? Colors.Underscore : null
+  }${color}`;
   if (level == "warn") {
-    console.warn(color, msg, Colors.Reset);
+    console.warn(colorString, msg, Colors.Reset);
   } else if (level == "log") {
-    console.log(color, msg, Colors.Reset);
+    console.log(colorString, msg, Colors.Reset);
   } else if (level == "error") {
-    console.error(color, msg, Colors.Reset);
+    console.error(colorString, msg, Colors.Reset);
   }
 }
