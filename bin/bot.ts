@@ -100,7 +100,3 @@ export async function startBot() {
 }
 
 client.on("error", console.error);
-
-// process.on("unhandledRejection", (error) => {
-//   console.log("error:", error);
-// });

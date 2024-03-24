@@ -32,6 +32,7 @@ app.post("/webhooks/tba", async (req, res) => {
     body.message_type != WebhookTypes.VERIFICATION
   ) {
     console.error("Unverified Request Received from", req.ip);
+    console.log(body);
     res.json({ error: "Unverified request" }).status(400);
 
     return;
@@ -50,7 +51,7 @@ app.post("/webhooks/tba", async (req, res) => {
       break;
     default:
       console.warn("Unhandled or Unknown Webhook Type:", body.message_type);
-      console.log(body);
+      console.warn(body);
   }
 
   res.status(200).json({ message: "success" });
