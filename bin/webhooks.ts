@@ -17,22 +17,25 @@ app.get("/", (req, res) => {
   res.json({ message: "No endpoint" });
 });
 
+/**
+ * Hosted Webhook receiver for TBA
+ */
 app.post("/webhooks/tba", async (req, res) => {
   const body = req.body as GeneralWebhook;
 
   const hmac = crypto.createHmac("sha256", process.env.TBA_WEBHOOK_SECRET!);
 
   // Disallowed request
-  // if (
-  //   hmac.update(stringifyWithSpaces(body), "utf-8").digest("hex") !=
-  //     req.get("X-TBA-HMAC") &&
-  //   body.message_type != WebhookTypes.VERIFICATION
-  // ) {
-  //   console.error("Unverified Request Received from", req.ip);
-  //   res.json({ error: "Unverified request" }).status(400);
+  if (
+    hmac.update(stringifyWithSpaces(body), "utf-8").digest("hex") !=
+      req.get("X-TBA-HMAC") &&
+    body.message_type != WebhookTypes.VERIFICATION
+  ) {
+    console.error("Unverified Request Received from", req.ip);
+    res.json({ error: "Unverified request" }).status(400);
 
-  //   return;
-  // }
+    return;
+  }
 
   switch (body.message_type) {
     // TBA Verification
@@ -46,7 +49,8 @@ app.post("/webhooks/tba", async (req, res) => {
       processUpcomingMatch(newBody);
       break;
     default:
-      console.error("Unhandled or Unknown Webhook Type:", body.message_type);
+      console.warn("Unhandled or Unknown Webhook Type:", body.message_type);
+      console.log(body);
   }
 
   res.status(200).json({ message: "success" });

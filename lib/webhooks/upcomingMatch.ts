@@ -7,6 +7,10 @@ import { APIMatchSimple } from "../../models/APIModels/TBA/APIMatchSimpleModel";
 import { APIEvent } from "../../models/APIModels/TBA/APIEventModel";
 import { generateUpcomingEventEmbed } from "../embeds/notifications/UpcomingEventEmbed";
 
+/**
+ * Processes the upcoming match notification and sends an embed message to the specified channels.
+ * @param body - The TBAUpcomingMatchNotification object containing the webhook match data.
+ */
 export async function processUpcomingMatch(body: TBAUpcomingMatchNotification) {
   const [channelSet, { match_number, alliances, comp_level }, { timezone }] =
     await Promise.all([
