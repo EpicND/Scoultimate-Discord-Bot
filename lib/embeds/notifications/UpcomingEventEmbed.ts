@@ -73,7 +73,7 @@ export function generateUpcomingEventEmbed(
     {
       name: "Red Alliance",
       value:
-        data.alliances?.blue?.team_keys.join(", ").split("frc").join("") ||
+        data.alliances?.red?.team_keys.join(", ").split("frc").join("") ||
         "N/A",
     },
   ]);
