@@ -31,6 +31,7 @@ export async function processUpcomingMatch(body: TBAUpcomingMatchNotification) {
     event_name: body.message_data.event_name,
     match_number,
     set_number,
+    teams: body.message_data.team_keys,
     predicted_time: body.message_data.predicted_time,
     scheduled_time: body.message_data.scheduled_time,
     timezone: timezone || "America/Chicago",

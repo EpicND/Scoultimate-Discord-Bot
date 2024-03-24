@@ -10,6 +10,7 @@ import {
 } from "../../../models/WebhookModels/GeneralWebhookModel";
 import { getStandardEmbed } from "../generate";
 import { EmbedBuilder } from "discord.js";
+import { embedConstants } from "../../constants";
 
 /**
  * This function is necessary to make the time be localized to the event
@@ -37,6 +38,8 @@ export function generateUpcomingEventEmbed(
     "Notification",
     WebhookNotificationTypesRenderText["upcoming_match"]
   );
+
+  embed.setColor(embedConstants.upcomingMatchNotification);
 
   embed.setTitle(
     `${WebhookTypesRenderText["upcoming_match"]} - ${data.event_name}`
@@ -70,16 +73,24 @@ export function generateUpcomingEventEmbed(
       inline: true,
     },
     {
+      name: "Teams",
+      value: `${
+        data.teams ? data.teams.join(", ").split("frc").join("") : "N/A"
+      }`,
+    },
+    {
       name: "Blue Alliance",
       value:
         data.alliances?.blue?.team_keys.join(", ").split("frc").join("") ||
         "N/A",
+      inline: true,
     },
     {
       name: "Red Alliance",
       value:
         data.alliances?.red?.team_keys.join(", ").split("frc").join("") ||
         "N/A",
+      inline: true,
     },
   ]);
 
