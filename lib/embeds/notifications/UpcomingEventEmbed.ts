@@ -1,6 +1,9 @@
 import { format } from "date-fns";
 import { UpcomingMatchNotificationEmbed } from "../../../models/EmbedModels/Notifications/UpcomingEventEmbedModel";
-import { CompetitionLevelTextStrings } from "../../../models/WebhookModels/CompetitionLevel";
+import {
+  CompetitionLevels,
+  CompetitionLevelTextStrings,
+} from "../../../models/WebhookModels/CompetitionLevel";
 import {
   WebhookNotificationTypesRenderText,
   WebhookTypesRenderText,
@@ -40,9 +43,11 @@ export function generateUpcomingEventEmbed(
   );
 
   embed.setDescription(
-    `${CompetitionLevelTextStrings[data.competition_level]} Match ${
-      data.match_number
-    }`
+    `${CompetitionLevelTextStrings[data.competition_level]}${
+      data.competition_level != CompetitionLevels.QM
+        ? ` ${data.set_number}`
+        : ""
+    } Match ${data.match_number}`
   );
 
   embed.addFields([

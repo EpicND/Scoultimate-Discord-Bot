@@ -41,8 +41,6 @@ async function getChannelsForNotificationsFromEventKey(
   const channels: string[] = [];
 
   for (let i = 0; i < newRefs.length; i++) {
-    // const guildRef = db.collection('bot').doc("notifications").collection("guilds").doc("")
-
     const guildData = (await newRefs[i].get()).data() as GuildModel;
 
     // if there for some reason is an issue with the database storage, we'll just continue to the next object

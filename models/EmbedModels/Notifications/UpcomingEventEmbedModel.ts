@@ -7,6 +7,7 @@ export interface UpcomingMatchNotificationEmbed {
   scheduled_time?: number;
   predicted_time?: number;
   match_number: number | string;
+  set_number: number | string;
   competition_level: CompetitionLevels;
   timezone: string;
 }
