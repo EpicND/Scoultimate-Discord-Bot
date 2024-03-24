@@ -1,9 +1,10 @@
-import constants from "../../constants";
+import constants from "../constants";
 import { AutocompleteOption } from "../../models/AutocompleteOptionModel";
 import { getEventsList } from "../lists/eventList";
 
 export async function EventAutocomplete(
-  input: string
+  input: string,
+  length: number = constants.discord_autocomplete_max_options
 ): Promise<AutocompleteOption[]> {
   input = input.toLowerCase();
 
@@ -35,10 +36,7 @@ export async function EventAutocomplete(
     };
   });
 
-  final.length =
-    final.length > constants.discord_autocomplete_max_options
-      ? constants.discord_autocomplete_max_options
-      : final.length;
+  final.length = final.length > length ? length : final.length;
 
   return final;
 }

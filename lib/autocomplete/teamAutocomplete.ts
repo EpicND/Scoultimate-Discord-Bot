@@ -1,20 +1,20 @@
-import constants from "../../constants";
+import constants from "../constants";
 import { AutocompleteOption } from "../../models/AutocompleteOptionModel";
 import { getTeamsList } from "../lists/teamList";
 
 export async function TeamAutocomplete(
-  input: string
+  input: string | number
 ): Promise<AutocompleteOption[]> {
-  input = input.toLowerCase();
+  let inputStr = typeof input == "string" ? input.toLowerCase() : `${input}`;
 
   const options = (await getTeamsList()).filter(
     (team) =>
-      team.name.toLowerCase().includes(input) ||
-      team.nickname?.toLowerCase().includes(input) ||
-      team.team_number.toString().includes(input) ||
-      team.country?.toLowerCase().includes(input) ||
-      team.state_prov?.toLowerCase().includes(input) ||
-      team.city?.toLowerCase().includes(input)
+      team.name.toLowerCase().includes(inputStr) ||
+      team.nickname?.toLowerCase().includes(inputStr) ||
+      team.team_number.toString().includes(inputStr) ||
+      team.country?.toLowerCase().includes(inputStr) ||
+      team.state_prov?.toLowerCase().includes(inputStr) ||
+      team.city?.toLowerCase().includes(inputStr)
   );
 
   const final = options.map((team) => {

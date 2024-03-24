@@ -1,7 +1,7 @@
 import { EmbedBuilder } from "discord.js";
 import { format } from "date-fns";
 import { getStandardEmbed } from "./generate";
-import { embedConstants } from "../../constants";
+import { embedConstants } from "../constants";
 import { getCountryEmoji } from "../getCountryEmoji";
 import { EventEmbed, TeamRank } from "../../models/EmbedModels/EventEmbedModel";
 

@@ -10,7 +10,7 @@ import { APITeamSocialMedia } from "../../models/APIModels/TBA/APITeamSocialMedi
 import { APITeamAward } from "../../models/APIModels/TBA/APITeamAwardModel";
 import { generateTeamEmbed } from "../../lib/embeds/TeamEmbed";
 import { APITeamEvent } from "../../models/APIModels/TBA/APITeamEventModel";
-import constants from "../../constants";
+import constants from "../../lib/constants";
 import { generateLoadingEmbed } from "../../lib/embeds/LoadingEmbed";
 import { getSocialMediaProfile } from "../../lib/getSocialMediaProfile";
 import { TeamAutocomplete } from "../../lib/autocomplete/teamAutocomplete";
@@ -37,18 +37,17 @@ const team: SlashCommand = {
     });
 
     try {
-      const embed = await retrieveEmbed(key);
-      interaction.editReply({ embeds: [embed] });
+      interaction.editReply({ embeds: [await retrieveEmbed(key)] });
     } catch (e) {
       console.error(e);
 
-      const embed = generateErrorEmbed({
-        error: `Error loading data. Please make sure ${key} is a valid team number.`,
-        command: "/team",
-      });
-
       interaction.editReply({
-        embeds: [embed],
+        embeds: [
+          generateErrorEmbed({
+            error: `Error loading data. Please make sure ${key} is a valid team number.`,
+            command: "/team",
+          }),
+        ],
       });
     }
   },

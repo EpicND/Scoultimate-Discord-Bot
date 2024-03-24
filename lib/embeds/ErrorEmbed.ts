@@ -1,5 +1,5 @@
 import { EmbedBuilder } from "discord.js";
-import { embedConstants } from "../../constants";
+import { embedConstants } from "../constants";
 import { ErrorEmbed } from "../../models/EmbedModels/ErrorEmbedModel";
 import { getStandardEmbed } from "./generate";
 

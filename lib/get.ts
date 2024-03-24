@@ -1,4 +1,4 @@
-import constants from "../constants";
+import constants from "./constants";
 import { APIStatus } from "../models/APIModels/TBA/APIStatusModel";
 
 const tbaRequestHeaders = new Headers({

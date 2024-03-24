@@ -1,3 +1,4 @@
+import { resolveColor } from "discord.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -20,12 +21,9 @@ export default {
   base_event_year: 2001,
 };
 
-interface embedConstants {
-  [key: string]: [number, number, number];
-}
-
-export const embedConstants: embedConstants = {
-  eventColor: [52, 186, 235],
-  errorColor: [207, 0, 0],
-  loadingColor: [50, 137, 68],
+export const embedConstants = {
+  eventColor: resolveColor([52, 186, 235]),
+  errorColor: resolveColor([207, 0, 0]),
+  loadingColor: resolveColor([50, 137, 68]),
+  upcomingMatchNotification: resolveColor([235, 52, 195]),
 };

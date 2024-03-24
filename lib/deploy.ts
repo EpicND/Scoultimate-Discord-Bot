@@ -4,7 +4,7 @@ import {
   Routes,
   SlashCommandBuilder,
 } from "discord.js";
-import constants from "../constants";
+import constants from "./constants";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -24,7 +24,7 @@ export default function deploy() {
     for (const file of commandFiles) {
       const filePath = path.join(commandsPath, file);
       const command = require(filePath).default;
-      if ("data" in command && "execute" in command) {
+      if (command && "data" in command && "execute" in command) {
         const data = command.data as SlashCommandBuilder;
         commands.push(data.toJSON());
       } else {

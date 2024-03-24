@@ -1,5 +1,5 @@
 import { EmbedBuilder } from "discord.js";
-import constants from "../../constants";
+import constants from "../constants";
 
 export function getStandardEmbed(
   command: string,
@@ -15,7 +15,7 @@ export function getStandardEmbed(
   embed.setTimestamp();
 
   embed.setAuthor({
-    name: `Scoultimate ${purpose}`,
+    name: `${purpose} - Scoultimate`,
   });
 
   return embed;

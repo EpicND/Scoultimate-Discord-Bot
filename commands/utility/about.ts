@@ -9,10 +9,17 @@ const about: SlashCommand = {
     .setDescription("Retrieves information about Scoultimate!"),
   async execute(interaction: ChatInputCommandInteraction) {
     const uptimeAsDate = new Date(process.uptime() * 1000);
+
+    let totalUsers = 0;
+
+    for (let guild in interaction.client.guilds.cache) {
+      totalUsers +=
+        interaction.client.guilds.cache.get(guild)?.memberCount || 0;
+    }
     const embed = getAboutEmbed({
       guilds: interaction.client.guilds.cache.size,
       channels: interaction.client.channels.cache.size,
-      users: interaction.client.users.cache.size,
+      users: totalUsers,
       uptime: {
         days: uptimeAsDate.getUTCDay() - 4,
         hours: uptimeAsDate.getUTCHours(),
