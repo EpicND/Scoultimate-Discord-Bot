@@ -9,7 +9,7 @@ import { getStandardEmbed } from "./generate";
  * @returns The generated error embed.
  */
 export function generateLoadingEmbed(embedData: LoadingEmbed): EmbedBuilder {
-  const embed = getStandardEmbed("Loading", "is Loading Data");
+  const embed = getStandardEmbed("Loading", "Loading Data");
 
   embed
     .setColor(embedConstants.loadingColor)

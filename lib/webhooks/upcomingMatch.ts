@@ -24,7 +24,6 @@ export async function processUpcomingMatch(body: TBAUpcomingMatchNotification) {
     get<APIEvent>(`event/${body.message_data.event_key}`),
   ]);
 
-  console.log(body);
   const embed = generateUpcomingEventEmbed({
     alliances,
     competition_level: comp_level,
