@@ -1,6 +1,8 @@
+import { WebhookTypes } from "./GeneralWebhookModel";
+
 export interface TBAUpcomingMatchNotification {
   message_data: MessageData;
-  message_type: string;
+  message_type: WebhookTypes;
 }
 
 export interface MessageData {

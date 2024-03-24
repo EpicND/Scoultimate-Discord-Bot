@@ -21,3 +21,41 @@ export enum WebhookTypes {
   UPDATE_SUBSCRIPTIONS = "update_subscriptions",
   VERIFICATION = "verification",
 }
+
+export const WebhookNotificationTypesRenderText = {
+  [WebhookTypes.UPCOMING_MATCH]: "Upcoming Match Notification",
+  [WebhookTypes.MATCH_SCORE]: "Match Score Notification",
+  [WebhookTypes.LEVEL_STARTING]: "Level Starting Notification",
+  [WebhookTypes.ALLIANCE_SELECTION]: "Alliance Selection Notification",
+  [WebhookTypes.AWARDS]: "Awards Posted Notification",
+  [WebhookTypes.MEDIA_POSTED]: "Media Posted Notification",
+  [WebhookTypes.DISTRICT_POINTS_UPDATED]: "District Points Notification",
+  [WebhookTypes.SCHEDULE_UPDATED]: "Event Schedule Notification",
+  [WebhookTypes.FINAL_RESULTS]: "Final Results Notification",
+  [WebhookTypes.PING]: "TBA Ping Notification",
+  [WebhookTypes.BROADCAST]: "Broadcast Notification",
+  [WebhookTypes.MATCH_VIDEO]: "Match Video Notification",
+  [WebhookTypes.EVENT_MATCH_VIDEO]: "Event Match Video Posted Notification",
+  [WebhookTypes.UPDATE_FAVORITES]: "Updated Favorites Notification",
+  [WebhookTypes.UPDATE_SUBSCRIPTIONS]: "Updated Subscriptions Notification",
+  [WebhookTypes.VERIFICATION]: "Verification Code Notification",
+};
+
+export const WebhookTypesRenderText = {
+  [WebhookTypes.UPCOMING_MATCH]: "Upcoming Match",
+  [WebhookTypes.MATCH_SCORE]: "Match Score",
+  [WebhookTypes.LEVEL_STARTING]: "Level Starting",
+  [WebhookTypes.ALLIANCE_SELECTION]: "Alliance Selection",
+  [WebhookTypes.AWARDS]: "Awards Posted",
+  [WebhookTypes.MEDIA_POSTED]: "Media Posted",
+  [WebhookTypes.DISTRICT_POINTS_UPDATED]: "District Points",
+  [WebhookTypes.SCHEDULE_UPDATED]: "Event Schedule",
+  [WebhookTypes.FINAL_RESULTS]: "Final Results",
+  [WebhookTypes.PING]: "TBA Ping",
+  [WebhookTypes.BROADCAST]: "Broadcast",
+  [WebhookTypes.MATCH_VIDEO]: "Match Video",
+  [WebhookTypes.EVENT_MATCH_VIDEO]: "Event Match Video Posted",
+  [WebhookTypes.UPDATE_FAVORITES]: "Updated Favorites",
+  [WebhookTypes.UPDATE_SUBSCRIPTIONS]: "Updated Subscriptions",
+  [WebhookTypes.VERIFICATION]: "Verification Code",
+};

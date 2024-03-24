@@ -15,7 +15,7 @@ export function getStandardEmbed(
   embed.setTimestamp();
 
   embed.setAuthor({
-    name: `Scoultimate ${purpose}`,
+    name: `${purpose} - Scoultimate`,
   });
 
   return embed;
