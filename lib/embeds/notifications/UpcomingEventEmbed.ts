@@ -8,6 +8,14 @@ import {
 import { getStandardEmbed } from "../generate";
 import { EmbedBuilder } from "discord.js";
 
+/**
+ * This function is necessary to make the time be localized to the event
+ *
+ * Stolen from Stackoverflow: https://stackoverflow.com/questions/10087819/convert-date-to-another-timezone-in-javascript
+ * @param date
+ * @param tzString
+ * @returns
+ */
 function convertTZ(date: any, tzString: string) {
   return new Date(
     (typeof date === "string" || typeof date == "number"
