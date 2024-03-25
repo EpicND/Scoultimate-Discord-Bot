@@ -79,8 +79,7 @@ export async function generateTeamEmbed(embedData: TeamEmbed) {
   embed.setThumbnail(logo_url);
 
   // used node-vibrant to add color to the embed based on team profile photo.
-
-  setEmbedColor(embed, logo_url, team_number);
+  await setEmbedColor(embed, logo_url, team_number);
 
   return embed;
 }

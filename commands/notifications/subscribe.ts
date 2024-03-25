@@ -11,6 +11,11 @@ import { generateErrorEmbed } from "../../lib/embeds/ErrorEmbed";
 import { verifyEvent } from "../../lib/verify/event";
 import { TeamAutocomplete } from "../../lib/autocomplete/teamAutocomplete";
 import { EventAutocomplete } from "../../lib/autocomplete/eventAutocomplete";
+import {
+  subscribeToEvent,
+  subscribeToTeam,
+} from "../../lib/notifications/subscribe";
+import { verifyTeam } from "../../lib/verify/team";
 
 const ping: SlashCommand = {
   data: new SlashCommandBuilder()
@@ -40,7 +45,7 @@ const ping: SlashCommand = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels),
   async execute(interaction: ChatInputCommandInteraction) {
-    const team = interaction.options.get("team")?.value as string;
+    const team = interaction.options.getNumber("team");
     const event = interaction.options.get("event")?.value as string;
     const channel = interaction.options.getChannel("channel") as TextChannel;
 
@@ -73,11 +78,41 @@ const ping: SlashCommand = {
 
     if (event) {
       // if its an event passed through
-      console.log("running");
-      if (!(await verifyEvent(event))) {
-        interaction.reply("Error, invalid event key");
+      if (!(await verifyEvent(event)) && event.toLowerCase() != "all") {
+        interaction.reply({
+          embeds: [
+            generateErrorEmbed({
+              error:
+                "Invalid event key. Make sure the event you provided exists.",
+              command: "/subscribe",
+            }),
+          ],
+        });
+      }
+      await subscribeToEvent(interaction.guildId!, channel.id, event);
+
+      interaction.reply("Success!");
+      return;
+    }
+    if (team) {
+      if (!(await verifyTeam(team))) {
+        interaction.reply({
+          embeds: [
+            generateErrorEmbed({
+              error:
+                "Invalid event key. Make sure the event you provided exists.",
+              command: "/subscribe",
+            }),
+          ],
+        });
+
         return;
       }
+
+      await subscribeToTeam(interaction.guildId!, channel.id, team);
+      interaction.reply("Success!");
+
+      return;
     }
 
     interaction.reply(`Not fully implemented: ${interaction.guildId}`);
