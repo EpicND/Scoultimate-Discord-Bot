@@ -1,5 +1,6 @@
 import { DatabaseEventModel } from "../../models/DatabaseModels/Notitfications/EventModel";
 import { GuildModel } from "../../models/DatabaseModels/Notitfications/GuildModel";
+import { DatabaseTeamModel } from "../../models/DatabaseModels/Notitfications/TeamModel";
 import { TBAUpcomingMatchNotification } from "../../models/WebhookModels/TBAUpcomingMatchNotificationModel";
 import { db } from "../firebase";
 
@@ -16,6 +17,16 @@ export async function getChannelsForNotifications(
     channels.add(channel)
   );
 
+  // add all teams
+  for (let i = 0; i < data.message_data.team_keys.length; i++) {
+    (
+      await getChannelsForNotificationsFromTeamNumber(
+        data.message_data.team_keys[i].replace("frc", "")
+      )
+    ).forEach((channel) => channels.add(channel));
+  }
+
+  console.log(channels);
   return channels;
 }
 
@@ -50,6 +61,41 @@ async function getChannelsForNotificationsFromEventKey(
 
     // add the channel
     channels.push(guildData.events[key]);
+  }
+
+  return channels;
+}
+
+async function getChannelsForNotificationsFromTeamNumber(
+  team: string
+): Promise<string[]> {
+  const teamRef = db
+    .collection("bot")
+    .doc("notifications")
+    .collection("teams")
+    .doc(team);
+
+  const data = (await teamRef.get()).data() as DatabaseTeamModel;
+  // No followers of the event in the database
+  if (!data) {
+    return [];
+  }
+
+  // get documents for all the refs
+  const newRefs = data.guilds;
+
+  const channels: string[] = [];
+
+  for (let i = 0; i < newRefs.length; i++) {
+    const guildData = (await newRefs[i].get()).data() as GuildModel;
+
+    // if there for some reason is an issue with the database storage, we'll just continue to the next object
+    if (!guildData) {
+      continue;
+    }
+
+    // add the channel
+    channels.push(guildData.teams[team]);
   }
 
   return channels;
