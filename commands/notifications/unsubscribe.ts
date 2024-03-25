@@ -16,44 +16,38 @@ import {
   subscribeToTeam,
 } from "../../lib/notifications/subscribe";
 import { verifyTeam } from "../../lib/verify/team";
+import {
+  unsubscribeFromEvent,
+  unsubscribeFromTeam,
+} from "../../lib/notifications/unsubscribe";
 
 const ping: SlashCommand = {
   data: new SlashCommandBuilder()
-    .setName("subscribe")
-    .setDescription("Enables notifications for a channel or team.")
-    .addChannelOption((option) =>
-      option
-        .setName("channel")
-        .setDescription(
-          "The Discord Channel you want match notifications for this team or event to be sent to."
-        )
-        .addChannelTypes(ChannelType.GuildText)
-        .setRequired(true)
-    )
+    .setName("unsubscribe")
+    .setDescription("Removes notifications for a channel or team.")
     .addNumberOption((option) =>
       option
         .setName("team")
         .setAutocomplete(true)
-        .setDescription("The team you want notifications for")
+        .setDescription("The team you want notifications disabled for")
     )
     .addStringOption((option) =>
       option
         .setName("event")
         .setAutocomplete(true)
-        .setDescription("The event you want notifications for")
+        .setDescription("The event you want notifications disabled for")
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels),
   async execute(interaction: ChatInputCommandInteraction) {
     const team = interaction.options.getNumber("team");
     const event = interaction.options.get("event")?.value as string;
-    const channel = interaction.options.getChannel("channel") as TextChannel;
 
     if (!team && !event) {
       interaction.reply({
         embeds: [
           generateErrorEmbed({
-            error: "Missing team or event to enable notifications for",
+            error: "Missing team or event to disable notifications for",
             command: "/subscribe",
           }),
         ],
@@ -67,7 +61,7 @@ const ping: SlashCommand = {
         embeds: [
           generateErrorEmbed({
             error:
-              "Cannot set notifications for team and event at once. Please run the command twice with different arguments.",
+              "Cannot remove notifications for team and event at once. Please run the command twice with different arguments.",
             command: "/subscribe",
           }),
         ],
@@ -89,7 +83,8 @@ const ping: SlashCommand = {
           ],
         });
       }
-      await subscribeToEvent(interaction.guildId!, channel.id, event);
+
+      await unsubscribeFromEvent(interaction.guildId!, event);
 
       interaction.reply("Success!");
       return;
@@ -109,7 +104,7 @@ const ping: SlashCommand = {
         return;
       }
 
-      await subscribeToTeam(interaction.guildId!, channel.id, team);
+      await unsubscribeFromTeam(interaction.guildId!, team);
       interaction.reply("Success!");
 
       return;
