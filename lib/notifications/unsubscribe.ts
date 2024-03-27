@@ -43,13 +43,22 @@ export async function unsubscribeFromTeam(
     .collection("teams")
     .doc(teamStr);
 
-  await db.runTransaction(async (transaction) => {
-    transaction.update(guildRef, {
-      [`teams.${teamStr}`]: FieldValue.delete(),
-    });
+  await db
+    .runTransaction(async (transaction) => {
+      const guildDoc = await guildRef.get();
+      const teamDoc = await teamRef.get();
 
-    transaction.update(teamRef, {
-      guilds: FieldValue.arrayRemove(guildRef),
-    });
-  });
+      if (guildDoc.exists) {
+        transaction.update(guildRef, {
+          [`teams.${teamStr}`]: FieldValue.delete(),
+        });
+      }
+
+      if (teamDoc.exists) {
+        transaction.update(teamRef, {
+          guilds: FieldValue.arrayRemove(guildRef),
+        });
+      }
+    })
+    .catch((err) => console.error(err));
 }
