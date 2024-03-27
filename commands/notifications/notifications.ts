@@ -9,9 +9,6 @@ const ping: SlashCommand = {
     .setDescription("Shows all the subscribed notifications for this server."),
   async execute(interaction: ChatInputCommandInteraction) {
     const data = await getSubscriptions(interaction.guild!.id);
-    if (!data) {
-      return;
-    }
 
     const embed = getSubscriptionsEmbed(data);
 

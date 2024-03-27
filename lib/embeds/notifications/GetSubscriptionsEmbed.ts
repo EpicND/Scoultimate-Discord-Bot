@@ -3,17 +3,17 @@ import { DatabaseGuild } from "../../../models/DatabaseModels/Notitfications/Gui
 import { getStandardEmbed } from "../generate";
 import { embedConstants } from "../../constants";
 
-export function getSubscriptionsEmbed(data: DatabaseGuild): EmbedBuilder {
+export function getSubscriptionsEmbed(data?: DatabaseGuild): EmbedBuilder {
   let eventStr = "";
   let teamStr = "";
 
-  for (let key in data.events) {
+  for (let key in data?.events) {
     eventStr += `${
       key == "all" ? "All Events" : key
     }: Notifications being sent to <#${data.events[key]}>\n`;
   }
 
-  for (let key in data.teams) {
+  for (let key in data?.teams) {
     teamStr += `${key}: Notifications being sent to <#${data.teams[key]}>\n`;
   }
 
