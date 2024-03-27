@@ -18,7 +18,7 @@ export function getSubscriptionsEmbed(data?: DatabaseGuild): EmbedBuilder {
   }
 
   eventStr = eventStr == "" ? "No event notifications" : eventStr;
-  teamStr = teamStr == "" ? "No team notifications" : eventStr;
+  teamStr = teamStr == "" ? "No team notifications" : teamStr;
 
   const embed = getStandardEmbed("/notifications", "Notifications");
   embed.addFields([
