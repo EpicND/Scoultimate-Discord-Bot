@@ -4,17 +4,12 @@ import {
   ChatInputCommandInteraction,
   PermissionFlagsBits,
   SlashCommandBuilder,
-  TextChannel,
 } from "discord.js";
 import { SlashCommand } from "../../types";
 import { generateErrorEmbed } from "../../lib/embeds/ErrorEmbed";
 import { verifyEvent } from "../../lib/verify/event";
 import { TeamAutocomplete } from "../../lib/autocomplete/teamAutocomplete";
 import { EventAutocomplete } from "../../lib/autocomplete/eventAutocomplete";
-import {
-  subscribeToEvent,
-  subscribeToTeam,
-} from "../../lib/notifications/subscribe";
 import { verifyTeam } from "../../lib/verify/team";
 import {
   unsubscribeFromEvent,
@@ -50,7 +45,7 @@ const ping: SlashCommand = {
         embeds: [
           generateErrorEmbed({
             error: "Missing team or event to disable notifications for",
-            command: "/subscribe",
+            command: "/unsubscribe",
           }),
         ],
       });
@@ -64,7 +59,7 @@ const ping: SlashCommand = {
           generateErrorEmbed({
             error:
               "Cannot remove notifications for team and event at once. Please run the command twice with different arguments.",
-            command: "/subscribe",
+            command: "/unsubscribe",
           }),
         ],
       });
