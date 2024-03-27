@@ -1,6 +1,6 @@
-import { DatabaseEventModel } from "../../models/DatabaseModels/Notitfications/EventModel";
-import { GuildModel } from "../../models/DatabaseModels/Notitfications/GuildModel";
-import { DatabaseTeamModel } from "../../models/DatabaseModels/Notitfications/TeamModel";
+import { DatabaseEvent } from "../../models/DatabaseModels/Notitfications/EventModel";
+import { DatabaseGuild } from "../../models/DatabaseModels/Notitfications/GuildModel";
+import { DatabaseTeam } from "../../models/DatabaseModels/Notitfications/TeamModel";
 import { TBAUpcomingMatchNotification } from "../../models/WebhookModels/TBAUpcomingMatchNotificationModel";
 import { db } from "../firebase";
 
@@ -39,7 +39,7 @@ async function getChannelsForNotificationsFromEventKey(
     .collection("events")
     .doc(key);
 
-  const data = (await eventRef.get()).data() as DatabaseEventModel;
+  const data = (await eventRef.get()).data() as DatabaseEvent;
 
   // No followers of the event in the database
   if (!data) {
@@ -52,7 +52,7 @@ async function getChannelsForNotificationsFromEventKey(
   const channels: string[] = [];
 
   for (let i = 0; i < newRefs.length; i++) {
-    const guildData = (await newRefs[i].get()).data() as GuildModel;
+    const guildData = (await newRefs[i].get()).data() as DatabaseGuild;
 
     // if there for some reason is an issue with the database storage, we'll just continue to the next object
     if (!guildData) {
@@ -75,7 +75,7 @@ async function getChannelsForNotificationsFromTeamNumber(
     .collection("teams")
     .doc(team);
 
-  const data = (await teamRef.get()).data() as DatabaseTeamModel;
+  const data = (await teamRef.get()).data() as DatabaseTeam;
   // No followers of the event in the database
   if (!data) {
     return [];
@@ -87,7 +87,7 @@ async function getChannelsForNotificationsFromTeamNumber(
   const channels: string[] = [];
 
   for (let i = 0; i < newRefs.length; i++) {
-    const guildData = (await newRefs[i].get()).data() as GuildModel;
+    const guildData = (await newRefs[i].get()).data() as DatabaseGuild;
 
     // if there for some reason is an issue with the database storage, we'll just continue to the next object
     if (!guildData) {

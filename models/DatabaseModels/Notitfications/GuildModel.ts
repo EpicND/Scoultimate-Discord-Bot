@@ -1,4 +1,4 @@
-export interface GuildModel {
+export interface DatabaseGuild {
   events: {
     [key: string]: string;
   };
