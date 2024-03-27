@@ -26,4 +26,5 @@ export const embedConstants = {
   errorColor: resolveColor([207, 0, 0]),
   loadingColor: resolveColor([50, 137, 68]),
   upcomingMatchNotification: resolveColor([235, 52, 195]),
+  successColor: resolveColor([97, 235, 52]),
 };
