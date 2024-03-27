@@ -16,6 +16,8 @@ import {
   subscribeToTeam,
 } from "../../lib/notifications/subscribe";
 import { verifyTeam } from "../../lib/verify/team";
+import { getSubscriptionsEmbedFromGuildId } from "../../lib/embeds/notifications/GetSubscriptionsEmbed";
+import { getSuccessfulSubscriptionEmbed } from "../../lib/embeds/notifications/GetSuccessfulEmbed";
 
 const ping: SlashCommand = {
   data: new SlashCommandBuilder()
@@ -88,12 +90,13 @@ const ping: SlashCommand = {
             }),
           ],
         });
-      }
-      await subscribeToEvent(interaction.guildId!, channel.id, event);
 
-      interaction.reply("Success!");
-      return;
+        return;
+      }
+
+      await subscribeToEvent(interaction.guildId!, channel.id, event);
     }
+
     if (team) {
       if (!(await verifyTeam(team))) {
         interaction.reply({
@@ -110,10 +113,14 @@ const ping: SlashCommand = {
       }
 
       await subscribeToTeam(interaction.guildId!, channel.id, team);
-      interaction.reply("Success!");
-
-      return;
     }
+
+    interaction.reply({
+      embeds: [
+        getSuccessfulSubscriptionEmbed(),
+        await getSubscriptionsEmbedFromGuildId(interaction.guild?.id!),
+      ],
+    });
   },
 
   async autocomplete(interaction: AutocompleteInteraction) {

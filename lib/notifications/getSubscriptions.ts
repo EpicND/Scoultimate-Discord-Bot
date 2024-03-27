@@ -4,7 +4,6 @@ import { db } from "../firebase";
 export async function getSubscriptions(
   id: string
 ): Promise<DatabaseGuild | undefined> {
-  console.log(id);
   const guildRef = db
     .collection("bot")
     .doc("notifications")

@@ -20,6 +20,8 @@ import {
   unsubscribeFromEvent,
   unsubscribeFromTeam,
 } from "../../lib/notifications/unsubscribe";
+import { getSuccessfulUnsubscribeEmbed } from "../../lib/embeds/notifications/GetSuccessfulEmbed";
+import { getSubscriptionsEmbedFromGuildId } from "../../lib/embeds/notifications/GetSubscriptionsEmbed";
 
 const ping: SlashCommand = {
   data: new SlashCommandBuilder()
@@ -82,13 +84,13 @@ const ping: SlashCommand = {
             }),
           ],
         });
+
+        return;
       }
 
       await unsubscribeFromEvent(interaction.guildId!, event);
-
-      interaction.reply("Success!");
-      return;
     }
+
     if (team) {
       if (!(await verifyTeam(team))) {
         interaction.reply({
@@ -105,10 +107,14 @@ const ping: SlashCommand = {
       }
 
       await unsubscribeFromTeam(interaction.guildId!, team);
-      interaction.reply("Success!");
-
-      return;
     }
+
+    interaction.reply({
+      embeds: [
+        getSuccessfulUnsubscribeEmbed(),
+        await getSubscriptionsEmbedFromGuildId(interaction.guild?.id!),
+      ],
+    });
   },
 
   async autocomplete(interaction: AutocompleteInteraction) {
