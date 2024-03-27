@@ -80,7 +80,7 @@ const ping: SlashCommand = {
             generateErrorEmbed({
               error:
                 "Invalid event key. Make sure the event you provided exists.",
-              command: "/subscribe",
+              command: "/unsubscribe",
             }),
           ],
         });
@@ -98,7 +98,7 @@ const ping: SlashCommand = {
             generateErrorEmbed({
               error:
                 "Invalid event key. Make sure the event you provided exists.",
-              command: "/subscribe",
+              command: "/unsubscribe",
             }),
           ],
         });
