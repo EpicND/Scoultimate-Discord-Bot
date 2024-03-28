@@ -4,8 +4,8 @@ export interface APIMatch {
   set_number: number;
   match_number: number;
   alliances?: Alliances;
-  winning_alliance?: string;
-  event_key: "red" | "blue" | "";
+  winning_alliance: "red" | "blue" | "";
+  event_key: string;
   time?: number;
   actual_time?: number;
   predicted_time?: number;

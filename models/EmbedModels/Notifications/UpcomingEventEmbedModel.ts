@@ -1,4 +1,4 @@
-import { Alliances } from "../../APIModels/TBA/APIMatchSimpleModel";
+import { Alliances } from "../../APIModels/TBA/APIMatchModel";
 import { CompetitionLevels } from "../../WebhookModels/CompetitionLevel";
 
 export interface UpcomingMatchNotificationEmbed {

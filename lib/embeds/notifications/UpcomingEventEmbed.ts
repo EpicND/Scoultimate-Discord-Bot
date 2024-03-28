@@ -31,7 +31,7 @@ function convertTZ(date: any, tzString: string) {
   );
 }
 
-export function generateUpcomingEventEmbed(
+export function generateUpcomingMatchEmbed(
   data: UpcomingMatchNotificationEmbed
 ): EmbedBuilder {
   const embed = getStandardEmbed(

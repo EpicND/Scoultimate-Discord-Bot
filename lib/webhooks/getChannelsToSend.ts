@@ -1,32 +1,45 @@
 import { DatabaseEvent } from "../../models/DatabaseModels/Notitfications/EventModel";
 import { DatabaseGuild } from "../../models/DatabaseModels/Notitfications/GuildModel";
 import { DatabaseTeam } from "../../models/DatabaseModels/Notitfications/TeamModel";
+import { WebhookTypes } from "../../models/WebhookModels/GeneralWebhookModel";
+import { TBAMatchScoreNotification } from "../../models/WebhookModels/TBAMatchScoreNotificationModel";
 import { TBAUpcomingMatchNotification } from "../../models/WebhookModels/TBAUpcomingMatchNotificationModel";
 import { db } from "../firebase";
 
 export async function getChannelsForNotifications(
-  data: TBAUpcomingMatchNotification
+  data: TBAUpcomingMatchNotification | TBAMatchScoreNotification,
+  event_key: string
 ): Promise<Set<string>> {
   const channels = new Set<string>();
 
-  (
-    await getChannelsForNotificationsFromEventKey(data.message_data.event_key)
-  ).forEach((channel) => channels.add(channel));
+  (await getChannelsForNotificationsFromEventKey(event_key)).forEach(
+    (channel) => channels.add(channel)
+  );
 
   (await getChannelsForNotificationsFromEventKey("all")).forEach((channel) =>
     channels.add(channel)
   );
 
   // add all teams
-  for (let i = 0; i < data.message_data.team_keys.length; i++) {
+  let team_keys =
+    data.message_type == WebhookTypes.UPCOMING_MATCH
+      ? (data as TBAUpcomingMatchNotification).message_data.team_keys
+      : [
+          ...((data as TBAMatchScoreNotification).message_data.match.alliances
+            ?.blue.team_keys || []),
+
+          ...((data as TBAMatchScoreNotification).message_data.match.alliances
+            ?.red.team_keys || []),
+        ];
+
+  for (let i = 0; i < team_keys.length; i++) {
     (
       await getChannelsForNotificationsFromTeamNumber(
-        data.message_data.team_keys[i].replace("frc", "")
+        team_keys[i].replace("frc", "")
       )
     ).forEach((channel) => channels.add(channel));
   }
 
-  console.log(channels);
   return channels;
 }
 

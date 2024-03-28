@@ -8,7 +8,7 @@ export interface TBAMatchScoreNotification {
 
 export interface MessageData {
   event_key: string;
-  match_key: string;
+  match_key?: string;
   team_key?: string;
   event_name: string;
   match: APIMatch;
