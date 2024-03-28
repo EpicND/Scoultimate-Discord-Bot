@@ -27,4 +27,10 @@ export const embedConstants = {
   loadingColor: resolveColor([50, 137, 68]),
   upcomingMatchNotification: resolveColor([235, 52, 195]),
   successColor: resolveColor([97, 235, 52]),
+
+  matches: {
+    drawMatchColor: resolveColor([183, 235, 52]),
+    blueWinColor: resolveColor([52, 168, 235]),
+    redWinColor: resolveColor([235, 83, 52]),
+  },
 };

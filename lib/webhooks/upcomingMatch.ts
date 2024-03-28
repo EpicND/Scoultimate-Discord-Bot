@@ -5,7 +5,7 @@ import { client } from "../../bin/bot";
 import { get } from "../get";
 import { APIMatchSimple } from "../../models/APIModels/TBA/APIMatchSimpleModel";
 import { APIEvent } from "../../models/APIModels/TBA/APIEventModel";
-import { generateUpcomingEventEmbed } from "../embeds/notifications/UpcomingEventEmbed";
+import { generateUpcomingMatchEmbed } from "../embeds/notifications/UpcomingEventEmbed";
 
 /**
  * Processes the upcoming match notification and sends an embed message to the specified channels.
@@ -17,14 +17,14 @@ export async function processUpcomingMatch(body: TBAUpcomingMatchNotification) {
     { match_number, alliances, comp_level, set_number },
     { timezone },
   ] = await Promise.all([
-    getChannelsForNotifications(body),
+    getChannelsForNotifications(body, body.message_data.event_key),
 
     // get published match data
     get<APIMatchSimple>(`match/${body.message_data.match_key}`),
     get<APIEvent>(`event/${body.message_data.event_key}`),
   ]);
 
-  const embed = generateUpcomingEventEmbed({
+  const embed = generateUpcomingMatchEmbed({
     alliances,
     competition_level: comp_level,
     event_name: body.message_data.event_name,

@@ -8,6 +8,8 @@ import {
 import { TBAUpcomingMatchNotification } from "../models/WebhookModels/TBAUpcomingMatchNotificationModel";
 import { processUpcomingMatch } from "../lib/webhooks/upcomingMatch";
 import { stringifyWithSpaces } from "../lib/customJson";
+import { TBAMatchScoreNotification } from "../models/WebhookModels/TBAMatchScoreNotificationModel";
+import { processMatchScore } from "../lib/webhooks/matchScore";
 
 export const app = express();
 
@@ -38,17 +40,23 @@ app.post("/webhooks/tba", async (req, res) => {
 
   //   return;
   // }
-
+  let newBody;
   switch (body.message_type) {
     // TBA Verification
     case WebhookTypes.VERIFICATION:
       console.log(body);
       break;
     case WebhookTypes.UPCOMING_MATCH:
-      const newBody = body as TBAUpcomingMatchNotification;
+      newBody = body as TBAUpcomingMatchNotification;
 
-      // will run asynchronously so request can be resolved
+      // will run asynchronously so request can be resolved quickly
       processUpcomingMatch(newBody);
+      break;
+    case WebhookTypes.MATCH_SCORE:
+      newBody = body as TBAMatchScoreNotification;
+
+      // will run asynchronously so request can be resolved quickly
+      processMatchScore(newBody);
       break;
     default:
       console.warn("Unhandled or Unknown Webhook Type:", body.message_type);
