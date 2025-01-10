@@ -1,0 +1,19 @@
+{
+    "name": "Scoultimate Discord Bot",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node",
+    "features": {
+        "ghcr.io/azure/azure-dev/azd:latest": {}
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            }
+        },
+        "extensions": [
+            "ms-vscode.node-debug2",
+            "dbaeumer.vscode-eslint"
+        ]
+    },
+    "postCreateCommand": "sudo npm install"
+}
