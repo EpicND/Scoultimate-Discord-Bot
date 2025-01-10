@@ -29,7 +29,7 @@ const ping: SlashCommand = {
         .setDescription(
           "The Discord Channel you want match notifications for this team or event to be sent to."
         )
-        .addChannelTypes(ChannelType.GuildText)
+        .addChannelTypes(ChannelType.GuildText, ChannelType.PublicThread)
         .setRequired(true)
     )
     .addNumberOption((option) =>
