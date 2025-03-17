@@ -55,7 +55,13 @@ async function apiRequest(
   if (data.status != 200) {
     let resp = await data.json();
     return Promise.reject(
-      "Received Non-200 HTTP code: " +
+      "Received Non-200 HTTP code for URL + " +
+        `${
+          type === "TBA"
+            ? constants.tba_base_api_url
+            : constants.statbotics_base_api_url
+        }/${path}` +
+        " : " +
         data.status +
         ". JSON Body was: " +
         JSON.stringify(resp)
